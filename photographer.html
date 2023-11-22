@@ -11,70 +11,71 @@
 </head>
 
 <body>
-  <div class="loader"></div>
 
   <div class="container">
     <header>
       <a href="index.html">
-        <img src="assets/images/logo.png" class="logo" />
+        <img class="logo_cadre" src="assets/images/logo.png" class="logo" />
       </a>
     </header>
 
     <main id="main">
-      <div class="photograph-header">
-        <section class="photographer_section">
-          <section class="photographe_cadre">
-            <div class="cadre">
-              <h2 class="name"></h2>
-              <h3 class="location"></h3>
-              <p class="tagline"></p>
-            </div>
-          </section>
-
-          <section>
-            <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-            <div id="contact_modal">
-              <div class="modal">
-                <header>
-                  <h2>Contactez-moi</h2>
-                  <img src="assets/icons/close.svg" onclick="closeModal()" />
-                </header>
-                <form>
-                  <div class="formData">
-                    <label for="last">Prénom</label>
-                    <input class="input" type="text" id="last" name="last" />
-                    <span class="msg"></span>
-                  </div>
-                  <div class="formData">
-                    <label for="last">Nom</label>
-                    <input class="input" type="text" id="last" name="last" />
-                    <span class="msg"></span>
-                  </div>
-                  <div class="formData">
-                    <label for="email">Email</label>
-                    <input class="input" type="text" id="email" name="email" />
-                    <span class="msg"></span>
-                  </div>
-                  <div class="formData">
-                    <label for="msg">Votre message</label>
-                    <textarea class="input" cols="98" rows="6" id="msg" name="message"></textarea>
-                    <span class="msg"></span>
-                  </div>
-                  <button class="contact_button" type="submit">Envoyer</button>
-                </form>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div class="photograph-photos"></div>
-          </section>
-        </section>
+      <div class="photographe_header">
+        <div class="photographe_cadre">
+          <h2 class="name"></h2>
+          <h3 class="location"></h3>
+          <p class="tagline"></p>
+        </div>
+        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
       </div>
     </main>
 
+    <div class="photograph-modal">
+      <div id="contact_modal">
+        <div class="modal">
+          <div id="contact" aria-hidden="true">
 
-    <script src="/scripts/pages/photographer.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
+            <form name="contact" action="#" method="GET">
+              <header>
+                <h2>Contactez-moi</h2>
+                <span id="nom_photographe"></span>
+                <img src="assets/icons/close.svg" onclick="closeModal()" />
+              </header>
+              <div id="photographer_name"></div>
+
+              <div class="formData">
+                <label for="first">Prénom</label>
+                <input class="text-control" type="text" id="first" name="first" minlength="2" required>
+                <span class="msg"></span>
+              </div>
+              <div class="formData">
+                <label for="last">Nom</label>
+                <input class="text-control" type="text" id="last" name="last" required>
+                <span class="msg"></span>
+              </div>
+              <div class="formData">
+                <label for="email">Email</label>
+                <input class="text-control" type="email" id="email" name="email">
+                <span class="msg"></span>
+              </div>
+
+              <div class="formData">
+                <label for="msg">Votre message</label>
+                <textarea class="input" cols="38" rows="6" id="msg" name="message"></textarea>
+                <span class="msg"></span>
+              </div>
+              <button class="contact_button" type="submit">Envoyer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="/scripts/pages/photographer.js" type="module"></script>
+    <script src="/scripts/utils/contactForm.js" type="module"></script>
+
 </body>
 
 </html>

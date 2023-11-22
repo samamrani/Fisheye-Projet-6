@@ -18,16 +18,12 @@ function photographerTemplate(data) {
 
     const h3 = document.createElement("h3");
     h3.textContent = city + "," + " " + country;
-    h3.style.color = "#901c1c";
-    h3.style.fontSize = "16px";
 
     const p = document.createElement("p");
     p.textContent = tagline;
-    p.style.fontSize = "12px";
 
     const span = document.createElement("span");
     span.textContent = price + "€" + "/jour";
-    span.style.fontSize = "10px";
 
     // création du lien
     const lien = document.createElement("a");

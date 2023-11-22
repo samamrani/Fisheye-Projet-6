@@ -1,11 +1,16 @@
 //Mettre le code JavaScript lié à la page photographer.html
 
 //fonction qui retourne photographers.json
-async function getPhotographers() {
+export async function getPhotographers() {
   const response = await fetch("data/photographers.json");
   return await response.json();
 }
 
+// Utilisez l'ID pour filtrer le photographe correspondant dans le tableau
+// Fonction de recherche personnalisée avec une valeur par défaut
+export function findPhotographerById(photographers, id) {
+  return photographers.find((photographer) => photographer.id === id);
+}
 // fonction asynchrone pour afficher les détails d'un photographe
 async function displayCadre() {
   // Attend que la fonction getPhotographers soit résolue pour obtenir les données des photographes
@@ -19,41 +24,34 @@ async function displayCadre() {
   let id = parseInt(params.get("id"));
   console.log(id);
 
-  // Utilisez l'ID pour filtrer le photographe correspondant dans le tableau
-  const selectedPhotographer = photographers.find(
-    (photographer) => photographer.id === id
-  );
+  // Utilisez la fonction personnalisée pour obtenir le photographe
+  const selectedPhotographer = findPhotographerById(photographers, id);
+
   // photographers.forEach((photographer) => {
-  const section = document.querySelector(".photographe_cadre");
+  const section = document.querySelector(".photographe_header");
 
   // selectionne les éléments dans le DOM
   const nameElement = section.querySelector(".name");
   const locationElement = section.querySelector(".location");
   const taglineElement = section.querySelector(".tagline");
 
-  // Vérifiez si le photographe est défini avant de mettre à jour le contenu
-  if (selectedPhotographer) {
-    // Mettre à jour le contenu avec les données du photographe
-    nameElement.textContent = selectedPhotographer.name;
-    locationElement.textContent =
-      selectedPhotographer.city + " " + selectedPhotographer.country;
-    taglineElement.textContent = selectedPhotographer.tagline;
-  } else {
-    // Affiche un message d'erreur si le photographe n'est pas trouvé
-    console.error("Photographe introuvable");
-  }
+  // Mettre à jour le contenu avec les données du photographe
+  nameElement.textContent = selectedPhotographer.name;
+  locationElement.textContent =
+    selectedPhotographer.city + " " + selectedPhotographer.country;
+  taglineElement.textContent = selectedPhotographer.tagline;
+
+  // Mettre à jour l'attribut src de l'élément img avec l'URL de l'image du photographe
+  const imgElement = section.querySelector(".img");
+  imgElement.src = `assets/images/photographers_id_photos/${selectedPhotographer.portrait}`;
+  imgElement.alt = "Portrait du photographe";
+  imgElement.setAttribute("aria-label", "Étiquette ARIA pour l'image");
 }
 
-// Appeler la fonction pour afficher les photographes
-displayCadre();
-
-// Fonction d'initialisation asynchrone
+// Déclaration de la fonction init
 async function init() {
-  // Récupère les donnees des photographes
-  const { photographers } = await getPhotographers();
   // Appelle la fonction pour afficher les photographes
-  displayCadre();
+  await displayCadre();
 }
 
-// Appel de la fonction init de manière asynchrone
 init();

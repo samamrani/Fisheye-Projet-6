@@ -1,11 +1,20 @@
+.logo_cadre {
+  height: 50px;
+}
+
 #contact_modal {
   display: none;
 }
 
-.photograph-header {
+.photographe_header {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: #fafafa;
-  height: 300px;
-  margin: 0 100px;
+  align-items: center;
+  width: 1240px;
+  height: 313px;
 }
 
 .contact_button {
@@ -19,19 +28,22 @@
   background-color: #901c1c;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 100px;
 }
 
 .modal {
   border-radius: 5px;
   background-color: #db8876;
+  margin: auto;
   width: 50%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 35px;
+  padding: 30px;
   margin: auto;
+  overflow: hidden;
+  position: relative;
 }
 
 .modal header {
@@ -54,6 +66,7 @@ form {
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 5%;
 }
 
 form label {
@@ -75,6 +88,12 @@ form input {
   border: none;
   border-radius: 5px;
 }
-.photograph-section {
-  display: flex;
+
+.input {
+  font-size: 25px;
+  margin-left: 10px;
+}
+#photographer_name {
+  font-size: 36px;
+  color: #901c1c;
 }
