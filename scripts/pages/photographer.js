@@ -6,12 +6,13 @@ export async function getPhotographers() {
   return await response.json();
 }
 
-// Utilisez l'ID pour filtrer le photographe correspondant dans le tableau
+// ID pour filtrer le photographe correspondant dans le tableau
 // Fonction de recherche personnalisée avec une valeur par défaut
 export function findPhotographerById(photographers, id) {
   return photographers.find((photographer) => photographer.id === id);
 }
-// fonction asynchrone pour afficher les détails d'un photographe
+// fonction asynchrone pour afficher les détails d'un phot
+
 async function displayCadre() {
   // Attend que la fonction getPhotographers soit résolue pour obtenir les données des photographes
   const photographersCadre = await getPhotographers();
@@ -43,7 +44,7 @@ async function displayCadre() {
 
   // Mettre à jour l'attribut src de l'élément img avec l'URL de l'image du photographe
   const imgElement = section.querySelector(".img");
-  imgElement.src = `assets/images/photographers_id_photos/${selectedPhotographer.portrait}`;
+  imgElement.src = `assets/photographers_id_photos/${selectedPhotographer.portrait}`;
   imgElement.alt = "Portrait du photographe";
   imgElement.setAttribute("aria-label", "Étiquette ARIA pour l'image");
 }

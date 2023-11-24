@@ -1,33 +1,34 @@
-//fonction qui retourne photographers.json
-async function getPhotographers() {
-  //charger les photographes depuis le fichier JSON
-  //const reponse = await fetch("data/photographers.json");
-  const reponse = await fetch("data/photographers.json");
-  const photographers = await reponse.json();
+import { Api } from "../helper/Api.js";
+import { PhotographerTemplate } from "../models/Photographer.js";
 
-  // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet,
-  // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
-  // console.log(photographers);
-  // et bien retourner le tableau photographers seulement une fois récupéré
-  return photographers;
+class App {
+  constructor() {
+    this.photographers;
+  }
+
+  async init() {
+    const api = new Api("data/photographers.json");
+    this.photographers = (await api.fetch()).photographers;
+
+    // console.log(this.photographers);
+    // console.log("init");
+    this.displayData();
+  }
+
+  async displayData() {
+    const photographersSection = document.querySelector(
+      ".photographer_section"
+    );
+
+    this.photographers.forEach((photographer) => {
+      const photographerModel = new PhotographerTemplate(photographer);
+      const userCardDOM = photographerModel.getUserCardDOM();
+      photographersSection.appendChild(userCardDOM);
+    });
+    /**/
+    //console.log(photographers);
+  }
 }
-//**************** */
-async function displayData(photographers) {
-  const photographersSection = document.querySelector(".photographer_section");
 
-  photographers.forEach((photographer) => {
-    const photographerModel = photographerTemplate(photographer);
-    const userCardDOM = photographerModel.getUserCardDOM();
-    photographersSection.appendChild(userCardDOM);
-  });
-  /**/
-  //console.log(photographers);
-}
-
-async function init() {
-  // Récupère les datas des photographes
-  const { photographers } = await getPhotographers();
-  displayData(photographers);
-}
-
-init();
+const app = new App();
+app.init();

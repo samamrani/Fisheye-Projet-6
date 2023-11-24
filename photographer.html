@@ -2,7 +2,6 @@
 <html>
 
 <head>
-
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -20,61 +19,77 @@
     </header>
 
     <main id="main">
-      <div class="photographe_header">
+
+
+      <!-- HEADER  photographes -->
+      <section class="photographe_header">
         <div class="photographe_cadre">
           <h2 class="name"></h2>
           <h3 class="location"></h3>
           <p class="tagline"></p>
         </div>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button">Contactez-moi</button>
         <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
-      </div>
+      </section>
+
+      <!-- TREI -->
+      <section>
+        <div class="filter">
+          <label for="sort">Trier par</label>
+          <select name="sort" id="sort">
+            <option value="likes">Popularité</option>
+            <option value="date">Date</option>
+            <option value="title">Titre</option>
+          </select>
+        </div>
+      </section>
     </main>
+  </div>
 
-    <div class="photograph-modal">
-      <div id="contact_modal">
-        <div class="modal">
-          <div id="contact" aria-hidden="true">
+  <div class="photograph-modal">
+    <div id="contact_modal">
+      <div class="modal">
+        <div id="contact" aria-hidden="true">
 
-            <form name="contact" action="#" method="GET">
-              <header>
-                <h2>Contactez-moi</h2>
-                <span id="nom_photographe"></span>
-                <img src="assets/icons/close.svg" onclick="closeModal()" />
-              </header>
-              <div id="photographer_name"></div>
+          <form name="contact" action="#" method="GET">
+            <header>
+              <h2>Contactez-moi</h2>
+              <span id="nom_photographe"></span>
+              <img src="assets/icons/close.svg" onclick="closeModal()" />
+            </header>
+            <div id="photographer_name"></div>
 
-              <div class="formData">
-                <label for="first">Prénom</label>
-                <input class="text-control" type="text" id="first" name="first" minlength="2" required>
-                <span class="msg"></span>
-              </div>
-              <div class="formData">
-                <label for="last">Nom</label>
-                <input class="text-control" type="text" id="last" name="last" required>
-                <span class="msg"></span>
-              </div>
-              <div class="formData">
-                <label for="email">Email</label>
-                <input class="text-control" type="email" id="email" name="email">
-                <span class="msg"></span>
-              </div>
+            <div class="formData">
+              <label for="first">Prénom</label>
+              <input class="text-control" type="text" id="first" name="first" minlength="2" required>
+              <span class="msg"></span>
+            </div>
+            <div class="formData">
+              <label for="last">Nom</label>
+              <input class="text-control" type="text" id="last" name="last" required>
+              <span class="msg"></span>
+            </div>
+            <div class="formData">
+              <label for="email">Email</label>
+              <input class="text-control" type="email" id="email" name="email">
+              <span class="msg"></span>
+            </div>
 
-              <div class="formData">
-                <label for="msg">Votre message</label>
-                <textarea class="input" cols="38" rows="6" id="msg" name="message"></textarea>
-                <span class="msg"></span>
-              </div>
-              <button class="contact_button" type="submit">Envoyer</button>
-            </form>
-          </div>
+            <div class="formData">
+              <label for="msg">Votre message</label>
+              <textarea class="input" cols="38" rows="6" id="msg" name="message"></textarea>
+              <span class="msg"></span>
+            </div>
+            <button class="contact_button" type="submit">Envoyer</button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
+  <script src="/scripts/utils/displayCloseModal.js" type="module"></script>
 
-
-    <script src="/scripts/pages/photographer.js" type="module"></script>
-    <script src="/scripts/utils/contactForm.js" type="module"></script>
+  <script src="/scripts/pages/photographer.js" type="module"></script>
+  <script src="/scripts/utils/contactForm.js" type="module"></script>
 
 </body>
 

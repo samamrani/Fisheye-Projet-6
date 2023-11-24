@@ -7,7 +7,6 @@
 }
 
 .photographe_header {
-  position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -35,7 +34,6 @@
   background-color: #db8876;
   margin: auto;
   width: 50%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,6 +42,7 @@
   margin: auto;
   overflow: hidden;
   position: relative;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
 }
 
 .modal header {
@@ -93,7 +92,12 @@ form input {
   font-size: 25px;
   margin-left: 10px;
 }
+
 #photographer_name {
-  font-size: 36px;
-  color: #901c1c;
+  color: #000;
+  font-size: 64px;
+  font-weight: 400;
+}
+.filter {
+  background: yellow;
 }

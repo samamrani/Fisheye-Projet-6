@@ -2,26 +2,9 @@ import {
   getPhotographers,
   findPhotographerById,
 } from "../pages/photographer.js";
+import { displayModal, closeModal } from "./displayCloseModal.js";
 
-// Elements du DOM
-const modal = document.getElementById("contact_modal");
-const contactForm = document.forms["contact"];
-
-// action pour ouvrir le modal
-function displayModal() {
-  modal.style.display = "block";
-}
-
-// actions pour fermer le modal
-// function closeModal() {
-//   modal.style.display = "none";
-// }
-
-// actions pour fermer le modal
-window.closeModal = function () {
-  modal.style.display = "none";
-};
-
+export const contactForm = document.forms["contact"];
 /*------------réinitialiser le formulaire---------------*/
 function resetForm() {
   contactForm.reset();
@@ -33,7 +16,6 @@ function photographerName(name) {
   const photographerForm = document.getElementById("photographer_name");
   photographerForm.textContent = name;
 }
-
 /*--------------la gestion du formulaire--------------*/
 document.addEventListener("DOMContentLoaded", async function () {
   // Récupérez les données du photographe au chargement de la page
