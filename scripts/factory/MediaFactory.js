@@ -6,7 +6,7 @@ export class MediaFactory {
   // Méthode createMedia
   static createMedia(datas) {
     // switch examine la valeur
-    switch (type_de_media) {
+    switch (datas.type) {
       case "image":
         return new Image(datas);
       case "video":

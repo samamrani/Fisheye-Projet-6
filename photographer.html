@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <link href="//vjs.zencdn.net/8.3.0/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/8.3.0/video.min.js"></script>
   <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
   <title>Fisheye - photographe </title>
 </head>
@@ -18,7 +20,7 @@
       </a>
     </header>
 
-    <main id="main">
+    <main id="main-wrapper" aria-hidden="false">
 
 
       <!-- HEADER  photographes -->
@@ -32,64 +34,83 @@
         <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
       </section>
 
+
       <!-- TREI -->
       <section>
-        <div class="filter">
-          <label for="sort">Trier par</label>
-          <select name="sort" id="sort">
-            <option value="likes">Popularité</option>
-            <option value="date">Date</option>
-            <option value="title">Titre</option>
-          </select>
+        <label for="menuDeroulant">Trier par</label>
+        <select id="menuDeroulant" name="menuDeroulant">
+          <option value="option1">Popularité</option>
+          <option value="option2">Date</option>
+          <option value="option3">Titre</option>
+
+        </select>
+      </section>
+
+      <section id="section_link">
+        <div class="link">
+          <div class="image"></div>
+          <div class="photographerId"></div>
+          <div class="title"></div>
+          <div class="likes"></div>
         </div>
+      </section>
+
+      <section>
+        <div id="video-container"></div>
       </section>
     </main>
   </div>
 
-  <div class="photograph-modal">
+  <div class="photographe-modal">
     <div id="contact_modal">
-      <div class="modal">
-        <div id="contact" aria-hidden="true">
+      <div class="modal" id="contact" aria-hidden="true" role="dialog">
 
-          <form name="contact" action="#" method="GET">
-            <header>
-              <h2>Contactez-moi</h2>
-              <span id="nom_photographe"></span>
-              <img src="assets/icons/close.svg" onclick="closeModal()" />
-            </header>
-            <div id="photographer_name"></div>
+        <!-- <div id=" contact" aria-hidden="true"> -->
 
-            <div class="formData">
-              <label for="first">Prénom</label>
-              <input class="text-control" type="text" id="first" name="first" minlength="2" required>
-              <span class="msg"></span>
-            </div>
-            <div class="formData">
-              <label for="last">Nom</label>
-              <input class="text-control" type="text" id="last" name="last" required>
-              <span class="msg"></span>
-            </div>
-            <div class="formData">
-              <label for="email">Email</label>
-              <input class="text-control" type="email" id="email" name="email">
-              <span class="msg"></span>
-            </div>
+        <form name="contact" action="#" method="GET">
+          <header>
+            <h2>Contactez-moi</h2>
+            <span id="nom_photographe"></span>
 
-            <div class="formData">
-              <label for="msg">Votre message</label>
-              <textarea class="input" cols="38" rows="6" id="msg" name="message"></textarea>
-              <span class="msg"></span>
-            </div>
-            <button class="contact_button" type="submit">Envoyer</button>
-          </form>
-        </div>
+            <img src="assets/icons/close.svg" />
+          </header>
+          <div id="photographer_name"></div>
+
+          <div class="formData">
+            <label for="first">Prénom</label>
+            <input class="text-control" type="text" id="first" name="first" minlength="2" required>
+            <span class="msg"></span>
+          </div>
+          <div class="formData">
+            <label for="last">Nom</label>
+            <input class="text-control" type="text" id="last" name="last" required>
+            <span class="msg"></span>
+          </div>
+          <div class="formData">
+            <label for="email">Email</label>
+            <input class="text-control" type="email" id="email" name="email">
+            <span class="msg"></span>
+          </div>
+
+          <div class="formData">
+            <label for="msg">Votre message</label>
+            <textarea class="input" cols="38" rows="6" id="msg" name="message"></textarea>
+            <span class="msg"></span>
+          </div>
+          <button class="contact_button" type="submit">Envoyer</button>
+        </form>
+        <!-- </div> -->
       </div>
     </div>
   </div>
-  <script src="/scripts/utils/displayCloseModal.js" type="module"></script>
 
+
+  <script src="/scripts/utils/displayCloseModal.js" type="module"></script>
   <script src="/scripts/pages/photographer.js" type="module"></script>
   <script src="/scripts/utils/contactForm.js" type="module"></script>
+  <script src="/scripts/utils/menuDeroulant.js" type="module"></script>
+  <script src="/scripts/models/PhotographeCard.js" type="module"></script>
+
 
 </body>
 

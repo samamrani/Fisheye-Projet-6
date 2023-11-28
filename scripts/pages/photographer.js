@@ -13,7 +13,7 @@ export function findPhotographerById(photographers, id) {
 }
 // fonction asynchrone pour afficher les détails d'un phot
 
-async function displayCadre() {
+async function displayPhographe() {
   // Attend que la fonction getPhotographers soit résolue pour obtenir les données des photographes
   const photographersCadre = await getPhotographers();
 
@@ -28,7 +28,6 @@ async function displayCadre() {
   // Utilisez la fonction personnalisée pour obtenir le photographe
   const selectedPhotographer = findPhotographerById(photographers, id);
 
-  // photographers.forEach((photographer) => {
   const section = document.querySelector(".photographe_header");
 
   // selectionne les éléments dans le DOM
@@ -44,7 +43,7 @@ async function displayCadre() {
 
   // Mettre à jour l'attribut src de l'élément img avec l'URL de l'image du photographe
   const imgElement = section.querySelector(".img");
-  imgElement.src = `assets/photographers_id_photos/${selectedPhotographer.portrait}`;
+  imgElement.src = `assets/photographers/${selectedPhotographer.portrait}`;
   imgElement.alt = "Portrait du photographe";
   imgElement.setAttribute("aria-label", "Étiquette ARIA pour l'image");
 }
@@ -52,7 +51,7 @@ async function displayCadre() {
 // Déclaration de la fonction init
 async function init() {
   // Appelle la fonction pour afficher les photographes
-  await displayCadre();
+  await displayPhographe();
 }
 
 init();

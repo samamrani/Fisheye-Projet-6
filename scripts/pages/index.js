@@ -1,5 +1,5 @@
-import { Api } from "../helper/Api.js";
-import { PhotographerTemplate } from "../models/Photographer.js";
+import { Api } from "../api/Api.js";
+import { PhotographerTemplate } from "../models/PhotographerTemplate.js";
 
 class App {
   constructor() {
@@ -9,9 +9,6 @@ class App {
   async init() {
     const api = new Api("data/photographers.json");
     this.photographers = (await api.fetch()).photographers;
-
-    // console.log(this.photographers);
-    // console.log("init");
     this.displayData();
   }
 
@@ -25,8 +22,6 @@ class App {
       const userCardDOM = photographerModel.getUserCardDOM();
       photographersSection.appendChild(userCardDOM);
     });
-    /**/
-    //console.log(photographers);
   }
 }
 
