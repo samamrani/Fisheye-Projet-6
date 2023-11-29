@@ -1,5 +1,5 @@
 import { Api } from "../api/Api.js";
-import { PhotographerTemplate } from "../models/PhotographerTemplate.js";
+import { PhotographerTemplate } from "../models/Photographer.js";
 
 class App {
   constructor() {
@@ -8,7 +8,7 @@ class App {
 
   async init() {
     const api = new Api("data/photographers.json");
-    this.photographers = (await api.fetch()).photographers;
+    this.photographers = await api.getPhotographers();
     this.displayData();
   }
 

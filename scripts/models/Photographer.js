@@ -1,4 +1,4 @@
-import { Image } from "../models/Image.js";
+import { Image } from "./Image.js";
 
 export class PhotographerTemplate {
   constructor(data) {
