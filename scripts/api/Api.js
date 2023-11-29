@@ -1,14 +1,13 @@
 export class Api {
   // Lorsque le constructeur est appelé, il prend cet argument
-  //  (data) et le stocke dans la propriété this._data.
+  //  (url) et le stocke dans la propriété this._url.
   constructor(url) {
     this._url = url;
   }
 
   async fetch() {
     try {
-      /*fetch(this._data) pour envoyer une requête HTTP. this._data doit 
-      être une URL ou un objet de requête compatible avec l'API Fetch. */
+      /*fetch(this._url) pour envoyer une requête HTTP. this._data  */
       const response = await fetch(this._url);
       /*await response.json() pour extraire et retourner
        les données au format JSON de la réponse. */
@@ -28,7 +27,6 @@ export class Api {
   // Récupère uniquement les informations d'un photographe
   async getPhotographer(id) {
     const photographers = await this.getPhotographers();
-
     return photographers.find((item) => item.id === id);
   }
 

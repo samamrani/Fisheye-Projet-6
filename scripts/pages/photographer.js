@@ -18,6 +18,7 @@ class App {
     await this.displayMedias();
   }
 
+  //Méthode displayPhotographer
   async displayPhotographer() {
     const section = document.querySelector(".photographe_header");
     const nameElement = section.querySelector(".name");

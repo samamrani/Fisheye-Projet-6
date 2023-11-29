@@ -1,5 +1,9 @@
 import { Media } from "./Media.js";
+
+//classe Image hérite de la classe Media
 export class Image extends Media {
+  //Image. Elle crée et retourne un élément img (image HTML)
+  //Méthode createElement
   createElement() {
     const img = document.createElement("img");
     img.setAttribute(

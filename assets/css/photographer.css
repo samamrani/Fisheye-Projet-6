@@ -131,7 +131,19 @@ select {
   cursor: pointer;
 }
 .media {
-  width: 200px;
-  height: 200px;
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+
   object-fit: cover;
+}
+
+.media-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}
+.media-container figcaption {
+  color: #901c1c;
+  font-size: 24px;
 }
