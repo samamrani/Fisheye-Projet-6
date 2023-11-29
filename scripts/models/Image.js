@@ -1,17 +1,13 @@
-// Déclaration de la classe Image
-export class Image {
-  // Le constructeur de la classe Image
-  constructor(src, alt, ariaLabel) {
-    this.src = src;
-    this.alt = alt;
-    this.ariaLabel = ariaLabel;
-  }
-  // Méthode createImageElement
-  createImageElement() {
+import { Media } from "./Media.js";
+export class Image extends Media {
+  createElement() {
     const img = document.createElement("img");
-    img.setAttribute("src", this.src);
-    img.setAttribute("alt", this.alt);
-    img.setAttribute("aria-label", this.ariaLabel);
+    img.setAttribute(
+      "src",
+      `assets/medias/${this.media.photographerId}/${this.media.image}`
+    );
+    img.setAttribute("alt", this.media.title);
+    img.setAttribute("aria-label", this.media.title);
     return img;
   }
 }

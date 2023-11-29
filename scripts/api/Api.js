@@ -20,13 +20,29 @@ export class Api {
     }
   }
 
+  // Récupère uniquement les photographes
   async getPhotographers() {
     return (await this.fetch()).photographers;
   }
 
+  // Récupère uniquement les informations d'un photographe
   async getPhotographer(id) {
     const photographers = await this.getPhotographers();
 
     return photographers.find((item) => item.id === id);
+  }
+
+  // Récupère les médias en rapport avec un photographe
+  async getMedias(photographerId) {
+    const data = await this.fetch();
+    const medias = data.media;
+    console.log(medias);
+    return medias.filter((item) => item.photographerId === photographerId);
+  }
+
+  // Récupère les informations d'un méda
+  async getMedia(id) {
+    const medias = await this.fetch().media;
+    return medias.find((item) => item.id === id);
   }
 }
