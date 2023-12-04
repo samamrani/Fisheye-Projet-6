@@ -2,7 +2,7 @@
 //   getPhotographers,
 //   findPhotographerById,
 // } from "../pages/photographer.js";
-import { displayModal, closeModal } from "./displayCloseModal.js";
+import { Modal } from "./Modal.js";
 
 export const contactForm = document.forms["contact"];
 
@@ -28,7 +28,8 @@ export function initForm(photographer) {
     // Utilisez la fonction pour mettre à jour le nom du photographe
     // photographerName(selectedPhotographer.name);
     // Ouvrez le formulaire modal
-    displayModal();
+    const modal = new Modal("contact_modal");
+    modal.display();
   });
 
   // Ajoutez un événement de soumission au formulaire
@@ -50,6 +51,7 @@ export function initForm(photographer) {
     // Réinitialise le formulaire après l'envoi
     contactForm.reset();
     // Fermez le formulaire après le traitement
-    closeModal();
+    const modal = new Modal("contact_modal");
+    modal.close();
   });
 }

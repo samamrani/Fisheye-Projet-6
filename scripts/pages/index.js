@@ -1,18 +1,15 @@
-import { Api } from "../api/Api.js";
-import { PhotographerTemplate } from "../models/Photographer.js";
+import { PhotographerApi } from "../controleurApi/Photographer.js";
+import { PhotographerModel } from "../models/Photographer.js";
+import { PhotographerTemplate } from "../vueTemplates/Photographer.js";
 
 class App {
   constructor() {
     this.photographers;
   }
 
-  //appelée au début de l'initialisation de l'application.
   async init() {
-    //-async init-une instance de la classe Api avec le chemin vers le fichier JSON des photographes.
-    const api = new Api("data/photographers.json");
-
-    //la méthode getPhotographers de l'API pour récupérer les données des photographes.
-    this.photographers = await api.getPhotographers();
+    const photographerApi = new PhotographerApi();
+    this.photographers = await photographerApi.getPhotographers();
     this.displayData();
   }
 
@@ -25,10 +22,10 @@ class App {
     //la méthode forEach pour itérer sur chaque élément (photographe) du tableau this.photographers.
     this.photographers.forEach((photographer) => {
       // Pour chaque photographe, crée une instance de PhotographerTemplate
-      const photographerModel = new PhotographerTemplate(photographer);
-
+      const photographerModel = new PhotographerModel(photographer);
+      const photographerTemplate = new PhotographerTemplate(photographerModel);
       // Appelle la méthode getUserCardDOM pour obtenir l'élément DOM du photographe
-      const userCardDOM = photographerModel.getUserCardDOM();
+      const userCardDOM = photographerTemplate.getCard();
 
       // Ajoute l'élément DOM du photographe à la section des photographes dans le document
       photographersSection.appendChild(userCardDOM);

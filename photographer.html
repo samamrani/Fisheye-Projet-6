@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
+
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -19,9 +20,8 @@
         <img class="logo_cadre" src="assets/logo.png" class="logo" />
       </a>
     </header>
-
+    <!-- le bloc est une fenêtre ou une boîte de dialogue -->
     <main id="main-wrapper" aria-hidden="false">
-
 
       <!-- HEADER  photographes -->
       <section class="photographe_header">
@@ -34,7 +34,6 @@
         <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
       </section>
 
-
       <!-- TREI -->
       <section>
         <label for="menuDeroulant">Trier par</label>
@@ -42,30 +41,32 @@
           <option value="option1">Popularité</option>
           <option value="option2">Date</option>
           <option value="option3">Titre</option>
-
         </select>
       </section>
-      <!--Media-->
 
+      <!--Media-->
       <section>
-        <div class="media-container">
+        <div class="media-container"></div>
+        <div class="likes-footer">
+          <div class="likes"></div>
+          <div class="icone"> <i class="fa-solid fa-heart iconSolide"></i></div>
+          <div class="price"></div>
         </div>
       </section>
     </main>
+
   </div>
 
   <div class="photographe-modal">
     <div id="contact_modal">
-      <div class="modal" id="contact" aria-hidden="true" role="dialog">
 
-        <!-- <div id=" contact" aria-hidden="true"> -->
+      <div class="modal" id="contact" aria-hidden="true" role="dialog" aria-describedby="modalTitle">
 
         <form name="contact" action="#" method="GET">
           <header>
             <h2>Contactez-moi</h2>
             <span id="nom_photographe"></span>
-
-            <img src="assets/icons/close.svg" />
+            <button class="modal-close-btn"> <img src="assets/icons/close.svg" /></button>
           </header>
           <div id="photographer_name"></div>
 
@@ -93,16 +94,30 @@
           <button class="contact_button" type="submit">Envoyer</button>
 
         </form>
-        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content">
+      <!-- Image container -->
+      <img id="lightbox-img" src="" alt="LightBox Image">
+      <!-- Navigation buttons -->
+      <div class="lightbox-nav">
+        <button onclick="prevImage()">Previous</button>
+        <button onclick="nextImage()">Next</button>
       </div>
     </div>
   </div>
 
 
-  <script src="/scripts/utils/displayCloseModal.js" type="module"></script>
+
+
   <script src="/scripts/pages/photographer.js" type="module"></script>
   <script src="/scripts/utils/contactForm.js" type="module"></script>
   <script src="/scripts/models/Media.js" type="module"></script>
+
 
 
   <script src="https://kit.fontawesome.com/83ce57e2f1.js" crossorigin="anonymous"></script>
