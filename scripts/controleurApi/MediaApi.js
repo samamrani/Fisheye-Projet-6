@@ -1,11 +1,11 @@
 import { Api } from "./Api.js";
 
-export class MediaApi {
+export class MediaApi extends Api {
   constructor() {
-    this.api = new Api("data/photographers.json");
+    super("data/photographers.json");
   }
   async getMedias(photographerId) {
-    const data = await this.api.fetch();
+    const data = await this.fetch();
     const medias = data.media;
     console.log(medias);
     return medias.filter((item) => item.photographerId === photographerId);
@@ -13,7 +13,7 @@ export class MediaApi {
 
   // Récupère les informations d'un méda
   async getMedia(id) {
-    const medias = await this.api.fetch().media;
+    const medias = await this.fetch().media;
     return medias.find((item) => item.id === id);
   }
 }

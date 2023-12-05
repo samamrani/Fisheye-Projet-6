@@ -16,7 +16,7 @@ export class PhotographerModel {
   }
 
   // incrémenter le nombre total de likes
-  totalLikes(likes) {
-    this.likes += likes;
-  }
+  // totalLikes(likes) {
+  //   this.likes += likes;
+  // }
 }

@@ -157,6 +157,7 @@ figure {
   display: flex;
   justify-content: space-around;
   align-items: center;
+
   border-radius: 5px;
   background: #db8876;
   width: 376px;
@@ -166,4 +167,11 @@ figure {
   text-align: center;
   font-size: 24px;
   font-weight: 500;
+}
+.iconSolide {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.iconSolide.clicked {
+  transform: rotate(90deg); /* Fait tourner de 180 degrés au clic */
 }

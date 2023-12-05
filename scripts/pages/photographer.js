@@ -1,8 +1,8 @@
-import { PhotographerApi } from "../controleurApi/Photographer.js";
-import { MediaApi } from "../controleurApi/Media.js";
+import { PhotographerApi } from "../controleurApi/PhotographerApi.js";
+import { MediaApi } from "../controleurApi/MediaApi.js";
 import { initForm } from "../utils/contactForm.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
-import { FooterDisplay } from "../vueTemplates/FooterDisplay.js";
+import { updateLikes } from "../vueTemplates/updateLikes.js";
 class App {
   constructor() {
     const params = new URL(document.location).searchParams;
@@ -10,17 +10,17 @@ class App {
     this.photographerApi = new PhotographerApi();
     this.mediaApi = new MediaApi();
     this.photographer = null;
-    this.footerDisplay = new FooterDisplay();
+    this.updateLikes = new updateLikes(this);
   }
 
   async init() {
     this.photographer = await this.photographerApi.getPhotographer(this.id);
-    console.log("Après getPhotographer", this.photographer);
-    console.log(this.id);
+    // console.log("Après getPhotographer", this.photographer);
+    // console.log(this.id);
     initForm(this.photographer);
     await this.displayPhotographerHeader();
     await this.displayMediasMain();
-    await this.displayMediafooter();
+    await this.displayMediaLikes();
   }
 
   //Méthode displayPhotographer
@@ -54,15 +54,14 @@ class App {
   }
   /***************** */
 
-  async displayMediafooter() {
+  async displayMediaLikes() {
     const medias = await this.mediaApi.getMedias(this.id);
-    const totalLikes = this.photographer.totalLikes || 0;
+    // const totalLikes = this.photographer.totalLikes || 0;
     console.log("Medias:", medias);
+    // total des likes à partir des médias
+    const totalLikes = medias.reduce((total, media) => total + media.likes, 1);
 
-    const footerDisplay = new FooterDisplay(this.photographer);
-
-    footerDisplay.totalLikes(totalLikes);
-    footerDisplay.displayFooter(); // Appel pour mettre à jour le DOM
+    this.updateLikes.totalLikes(totalLikes);
   }
 }
 

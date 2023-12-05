@@ -4,6 +4,7 @@ export class MediaModel {
     //le chemin vers le répertoire des médias et l'Id du photographe.
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
+    this.liked = false;
   }
 
   // Méthode getMediaDOM crée et retourne l'élément DOM représentant le média
@@ -31,6 +32,7 @@ export class MediaModel {
 
     const iconSolide = document.createElement("i"); // Création de l'icône du cœur
     iconSolide.className = "fa-solid fa-heart iconSolide";
+
     iconLikes.appendChild(likes);
     iconLikes.appendChild(iconSolide);
 
@@ -42,29 +44,29 @@ export class MediaModel {
 
     // gestionnaire d'événements pour le clic sur le bouton de like
     iconLikes.addEventListener("click", async () => {
-      this.MediaClick();
+      this.mediaClick();
 
-      // Récupérer le total des likes après le clic
-      const updatedTotalLikes = this.media.likes;
+      // Ajoutez la classe pour déclencher l'effet de rotation
+      iconSolide.classList.add("clicked");
 
-      // Déclencher un événement pour informer du changement de likes
-      const likesChangedEvent = new CustomEvent("change mediaLikes", {
-        detail: { totalLikes: updatedTotalLikes },
-      });
-
-      // Dispatch l'événement
-      document.dispatchEvent(likesChangedEvent);
+      // Retirez la classe après un certain délai
+      setTimeout(() => {
+        iconSolide.classList.remove("clicked");
+      }, 200);
     });
 
     return figure;
   }
 
-  MediaClick() {
-    // Augmenter le nombre de likes du média
-    this.media.likes++;
+  mediaClick() {
+    // Inverser l'état du like
+    this.Liked = !this.Liked;
+
+    // Mettre à jour le nombre de likes en conséquence
+    this.media.likes = this.Liked ? this.media.likes + 1 : this.media.likes - 1;
 
     // Déclencher un événement avec le nombre total de likes
-    const mediaLikesChangedEvent = new CustomEvent("change mediaLikes", {
+    const mediaLikesChangedEvent = new CustomEvent("mediaLikes", {
       detail: {
         totalLikes: this.media.likes,
       },

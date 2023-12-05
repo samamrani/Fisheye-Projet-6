@@ -1,12 +1,12 @@
 import { Api } from "./Api.js";
 
-export class PhotographerApi {
+export class PhotographerApi extends Api {
   // Récupère uniquement les photographes
   constructor() {
-    this.api = new Api("data/photographers.json");
+    super("data/photographers.json");
   }
   async getPhotographers() {
-    return (await this.api.fetch()).photographers;
+    return (await this.fetch()).photographers;
   }
 
   // Récupère uniquement les informations d'un photographe

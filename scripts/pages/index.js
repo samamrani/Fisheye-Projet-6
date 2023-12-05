@@ -1,4 +1,4 @@
-import { PhotographerApi } from "../controleurApi/Photographer.js";
+import { PhotographerApi } from "../controleurApi/PhotographerApi.js";
 import { PhotographerModel } from "../models/Photographer.js";
 import { PhotographerTemplate } from "../vueTemplates/Photographer.js";
 
