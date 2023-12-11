@@ -1,14 +1,15 @@
-export class MediaModel {
+export class MediaTemplate {
   //Le constructeur prend un objet media qui represent données du média
-  constructor(media) {
+  constructor(media, photographer, app) {
     //le chemin vers le répertoire des médias et l'Id du photographe.
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
-    this.liked = false;
+    this.photographer = photographer;
+    this.app = app;
   }
 
   // Méthode getMediaDOM crée et retourne l'élément DOM représentant le média
-  getMediaDOM() {
+  getDOM() {
     // Création d'un élément <figure> qui encapsulera le média
     const figure = document.createElement("figure");
     const media = this.createElement(); // Appel à la méthode abstraite createElement
@@ -19,13 +20,9 @@ export class MediaModel {
     const figcaption = document.createElement("figcaption");
 
     const titleText = document.createElement("span"); // Créer un élément span pour le titre
-    titleText.style.whiteSpace = "nowrap";
-    titleText.style.overflow = "hidden";
-    titleText.style.textOverflow = "ellipsis";
-    titleText.style.width = "292px";
+    titleText.textContent = this.media.title;
 
     const iconLikes = document.createElement("div");
-
     const likes = document.createElement("span"); // Création le nombre de likes
     likes.className = "likes";
     likes.textContent = this.media.likes;
@@ -36,34 +33,38 @@ export class MediaModel {
     iconLikes.appendChild(likes);
     iconLikes.appendChild(iconSolide);
 
-    // Ajout du titre, du nombre de likes et de l'icône du cœur à <figcaption>
-    titleText.appendChild(document.createTextNode(`${this.media.title}`));
     figcaption.appendChild(titleText);
     figcaption.appendChild(iconLikes);
     figure.appendChild(figcaption);
 
     // gestionnaire d'événements pour le clic sur le bouton de like
-    iconLikes.addEventListener("click", async () => {
+    iconLikes.addEventListener("click", () => {
       this.mediaClick();
-
-      // Ajoutez la classe pour déclencher l'effet de rotation
-      iconSolide.classList.add("clicked");
-
-      // Retirez la classe après un certain délai
-      setTimeout(() => {
-        iconSolide.classList.remove("clicked");
-      }, 200);
+      likes.textContent = this.media.likes;
     });
-
     return figure;
   }
 
-  mediaClick() {
-    // Inverser l'état du like
+  mediaClick = () => {
     this.Liked = !this.Liked;
 
-    // Mettre à jour le nombre de likes en conséquence
-    this.media.likes = this.Liked ? this.media.likes + 1 : this.media.likes - 1;
+    // Mettre à jour le nombre de likes
+    if (this.Liked) {
+      this.media.likes = this.media.likes + 1;
+      this.photographer.totalLikes++;
+    } else {
+      this.media.likes = this.media.likes - 1;
+      this.photographer.totalLikes--;
+    }
+
+    // Mettre à jour le nombre total de likes du photographe
+    // let totalLikesChange; // Déclarer la variable totalLikesChange
+    // if (this.Liked) {
+    //   totalLikesChange = 1;
+    // } else {
+    //   totalLikesChange = -1;
+    // }
+    // this.app.photographer.totalLikes += totalLikesChange;
 
     // Déclencher un événement avec le nombre total de likes
     const mediaLikesChangedEvent = new CustomEvent("mediaLikes", {
@@ -74,7 +75,7 @@ export class MediaModel {
 
     // console.log("Media Clicked. Total Likes:", this.media.likes);
     document.dispatchEvent(mediaLikesChangedEvent);
-  }
+  };
 
   createElement() {}
 }

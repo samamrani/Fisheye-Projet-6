@@ -24,8 +24,8 @@ class App {
       // Pour chaque photographe, crée une instance de PhotographerTemplate
       const photographerModel = new PhotographerModel(photographer);
       const photographerTemplate = new PhotographerTemplate(photographerModel);
-      // Appelle la méthode getUserCardDOM pour obtenir l'élément DOM du photographe
-      const userCardDOM = photographerTemplate.getCard();
+      // Appelle la méthode
+      const userCardDOM = photographerTemplate.getDOM();
 
       // Ajoute l'élément DOM du photographe à la section des photographes dans le document
       photographersSection.appendChild(userCardDOM);

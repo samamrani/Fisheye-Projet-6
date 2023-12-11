@@ -2,7 +2,7 @@ import { PhotographerApi } from "../controleurApi/PhotographerApi.js";
 import { MediaApi } from "../controleurApi/MediaApi.js";
 import { initForm } from "../utils/contactForm.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
-import { updateLikes } from "../vueTemplates/updateLikes.js";
+
 class App {
   constructor() {
     const params = new URL(document.location).searchParams;
@@ -10,21 +10,19 @@ class App {
     this.photographerApi = new PhotographerApi();
     this.mediaApi = new MediaApi();
     this.photographer = null;
-    this.updateLikes = new updateLikes(this);
   }
 
   async init() {
     this.photographer = await this.photographerApi.getPhotographer(this.id);
-    // console.log("Après getPhotographer", this.photographer);
-    // console.log(this.id);
+    this.medias = await this.mediaApi.getMedias(this.id);
     initForm(this.photographer);
-    await this.displayPhotographerHeader();
-    await this.displayMediasMain();
-    await this.displayMediaLikes();
+    this.displayPhotographerHeader();
+    this.displayMediasMain();
+    this.displayMediaLikes();
   }
 
   //Méthode displayPhotographer
-  async displayPhotographerHeader() {
+  displayPhotographerHeader() {
     const section = document.querySelector(".photographe_header");
     const nameElement = section.querySelector(".name");
     const locationElement = section.querySelector(".location");
@@ -44,25 +42,59 @@ class App {
 
   //Méthode displayMedias
   async displayMediasMain() {
-    const medias = await this.mediaApi.getMedias(this.id);
     const mediaContainer = document.querySelector(".media-container");
 
-    medias.forEach((media) => {
-      const template = MediaFactory.create(media);
-      mediaContainer.appendChild(template.getMediaDOM());
+    this.medias.forEach((media) => {
+      const template = MediaFactory.create(media, this.photographer, this);
+      const mediaDOM = template.getDOM();
+
+      // gestionnaire d'événements au clic sur chaque élément média
+      // mediaDOM.addEventListener("click", () => {
+      //   this.openLightbox(medias, medias.indexOf(media));
+      // });
+      mediaContainer.appendChild(mediaDOM);
     });
   }
   /***************** */
+  updateLikes() {
+    const section = document.querySelector(".likes-footer");
 
-  async displayMediaLikes() {
-    const medias = await this.mediaApi.getMedias(this.id);
-    // const totalLikes = this.photographer.totalLikes || 0;
-    console.log("Medias:", medias);
-    // total des likes à partir des médias
-    const totalLikes = medias.reduce((total, media) => total + media.likes, 1);
+    const likes = section.querySelector(".likes");
+    likes.textContent = this.photographer.totalLikes;
 
-    this.updateLikes.totalLikes(totalLikes);
+    const priceElement = section.querySelector(".price");
+    priceElement.textContent =
+      this.photographer.price + " €" + " " + "/" + "jour";
   }
+
+  displayMediaLikes() {
+    // recup l'événement de changement de likes
+    document.addEventListener("mediaLikes", this.updateLikes.bind(this));
+
+    // total des likes à partir des médias
+
+    let totalLikes = 0;
+    for (let i = 0; i < this.medias.length; i++) {
+      totalLikes += this.medias[i].likes;
+    }
+    this.photographer.totalLikes = totalLikes;
+    this.updateLikes();
+  }
+
+  // Méthode pour afficher la lightbox
+  // openLightbox(medias, index) {
+  //   for (let i = 0; i < medias.length; i++) {
+  //     if (i === index) {
+  //       this.list = medias;
+  //       this.updateLightbox(index);
+  //       lightbox.showModal(); //methode afficher un dialogue avec IDlightbox
+  //       return true;
+  //     }
+  //   }
+
+  //   console.error("Valeur d'index non valide !");
+  //   return false;
+  // }
 }
 
 const app = new App();

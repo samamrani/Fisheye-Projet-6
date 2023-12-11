@@ -1,13 +1,14 @@
 .logo_cadre {
   height: 50px;
 }
+
 .photographe_header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #fafafa;
   align-items: center;
-
+  padding: 50px;
   height: 313px;
 }
 
@@ -30,32 +31,29 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
-#contact_modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
+/* 
+LIGHTBOX */
+/* #contact {
   height: 100%;
-  width: 100%;
-  overflow: auto;
-  background-color: rgba(196, 196, 196, 0.4);
-}
-
-.modal {
-  border-radius: 5px;
-  background-color: #db8876;
-  margin: 5% auto;
   width: 50%;
+  overflow: auto;
+} */
+/* #contact[open] {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+} */
+/* #contact::backdrop {
+  background-color: rgba(196, 196, 196, 0.4);
+} */
+.modal {
+  background-color: #db8876;
+  margin: 2% auto;
   padding: 30px;
-  overflow: hidden;
   position: relative;
-  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
+  width: 100%;
+  max-width: 40%;
+  height: 100%;
+  max-height: 100%;
+  border: #fafafa;
 }
 
 .modal header {
@@ -73,13 +71,13 @@
   text-align: center;
 }
 
-form {
+/* form {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 5%;
-}
+} */
 
 form label {
   color: #312e2e;
@@ -87,10 +85,6 @@ form label {
 }
 
 form div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: self-start;
   margin-bottom: 26px;
 }
 
@@ -135,11 +129,9 @@ select {
 }
 
 .media-container {
-  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 60px;
-
   color: #901c1c;
   font-size: 24px;
 }
@@ -148,16 +140,25 @@ figcaption {
   display: flex;
   justify-content: space-between;
 }
+
+figcaption span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+  white-space: nowrap;
+}
 figure {
   width: 350px;
   height: 300px;
+}
+figcaption .likes {
+  margin: 10px;
 }
 
 .likes-footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   border-radius: 5px;
   background: #db8876;
   width: 376px;
@@ -166,12 +167,38 @@ figure {
   position: absolute;
   text-align: center;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: bold;
 }
-.iconSolide {
+
+.likes-icon {
+  display: flex;
+}
+.likes {
+  margin-right: 10px;
+}
+/*  */
+.likes .iconSolid {
+  background-color: aliceblue;
+}
+/* lightbox */
+.lightbox_container .lightbox_close {
+  background-color: #db8876;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
-.iconSolide.clicked {
-  transform: rotate(90deg); /* Fait tourner de 180 degrés au clic */
+.figure {
+  text-align: center; /* Centre l'image */
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
 }

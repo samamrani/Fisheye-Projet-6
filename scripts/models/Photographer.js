@@ -12,11 +12,5 @@ export class PhotographerModel {
     this.country = country;
     this.tagline = tagline;
     this.price = price;
-    this.totalLikes = 0;
   }
-
-  // incrémenter le nombre total de likes
-  // totalLikes(likes) {
-  //   this.likes += likes;
-  // }
 }

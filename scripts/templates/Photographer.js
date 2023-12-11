@@ -3,7 +3,7 @@ export class PhotographerTemplate {
     this.photographer = photographerModel;
   }
 
-  getCard() {
+  getDOM() {
     const article = document.createElement("article");
     const image = document.createElement("img");
     image.setAttribute("src", this.photographer.picture);

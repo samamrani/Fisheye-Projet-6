@@ -1,8 +1,7 @@
 import { Api } from "./Api.js";
-
 export class MediaApi extends Api {
   constructor() {
-    super("data/photographers.json");
+    super("data/photographers.json"); //fehier JSON sera utilisé comme source de donnees pour API
   }
   async getMedias(photographerId) {
     const data = await this.fetch();

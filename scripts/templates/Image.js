@@ -1,7 +1,7 @@
-import { MediaModel } from "./Media.js";
+import { MediaTemplate } from "./Media.js";
 
 //classe Image hérite de la classe Media
-export class Image extends MediaModel {
+export class ImageTemplate extends MediaTemplate {
   //Image. Elle crée et retourne un élément img (image HTML)
   //Méthode createElement
   createElement() {

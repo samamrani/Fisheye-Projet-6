@@ -1,38 +1,20 @@
-// import {
-//   getPhotographers,
-//   findPhotographerById,
-// } from "../pages/photographer.js";
 import { Modal } from "./Modal.js";
 
 export const contactForm = document.forms["contact"];
 
+// Initialisation du formulaire avec des données du photographe :
 export function initForm(photographer) {
-  /*--------------la gestion du formulaire--------------*/
-  // Récupérez les données du photographe au chargement de la page
-  //const photographersCadre = await getPhotographers();
-  //const photographers = photographersCadre.photographers;
-
-  // Récupérez l'ID du photographe à partir des paramètres de l'URL
-  //let params = new URL(document.location).searchParams;
-  //let id = parseInt(params.get("id"));
-
-  //const selectedPhotographer = findPhotographerById(photographers, id);
-
-  // Mettez à jour le nom du photographe dans le formulaire
   const photographerForm = document.getElementById("photographer_name");
   photographerForm.textContent = photographer.name;
 
-  // Ajoutez un gestionnaire de clic au bouton "Contactez-moi"
+  // Gestionnaire de clic pour le bouton "Contactez-moi
   const contactButton = document.querySelector(".contact_button");
   contactButton.addEventListener("click", function () {
-    // Utilisez la fonction pour mettre à jour le nom du photographe
-    // photographerName(selectedPhotographer.name);
-    // Ouvrez le formulaire modal
-    const modal = new Modal("contact_modal");
+    const modal = new Modal("#contact");
     modal.display();
   });
 
-  // Ajoutez un événement de soumission au formulaire
+  // Gestionnaire de soumission du formulaire
   contactForm.addEventListener("submit", function (event) {
     event.preventDefault(); // Empêche le formulaire de se soumettre normalement
 
@@ -42,6 +24,13 @@ export function initForm(photographer) {
     const email = contactForm.elements["email"].value;
     const message = contactForm.elements["message"].value;
 
+    // Vérifiez si les champs obligatoires sont vides
+    if (!firstName || !lastName || !email || !message) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return; // Ne continuez pas avec l'envoi du formulaire
+    }
+
+    //Affichage des données dans la console
     console.log("Nom du photographe:", photographer.name);
     console.log("Prénom:", firstName);
     console.log("Nom:", lastName);
@@ -50,8 +39,14 @@ export function initForm(photographer) {
 
     // Réinitialise le formulaire après l'envoi
     contactForm.reset();
-    // Fermez le formulaire après le traitement
-    const modal = new Modal("contact_modal");
+    const modal = new Modal("#contact");
+    modal.close();
+  });
+
+  // Gestionnaire de clic au bouton de fermeture du modal
+  const closeBtn = document.querySelector(".modal-close-btn");
+  closeBtn.addEventListener("click", function () {
+    const modal = new Modal("#contact");
     modal.close();
   });
 }

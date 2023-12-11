@@ -1,6 +1,6 @@
-import { MediaModel } from "./Media.js";
+import { MediaTemplate } from "./Media.js";
 //extends Media indique que la classe Video hérite de la classe Media
-export class Video extends MediaModel {
+export class VideoTemplate extends MediaTemplate {
   //Méthode createElement:Elle crée et retourne un élément video
   createElement() {
     const video = document.createElement("video");
