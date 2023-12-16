@@ -1,10 +1,11 @@
 export class MediaTemplate {
   //Le constructeur prend un objet media qui represent données du média
-  constructor(media, photographer, app) {
+  constructor(media, photographer, list, app) {
     //le chemin vers le répertoire des médias et l'Id du photographe.
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
     this.photographer = photographer;
+    this.list = list; // Nouvelle propriété pour la liste de médias
     this.app = app;
   }
 
@@ -42,6 +43,7 @@ export class MediaTemplate {
       this.mediaClick();
       likes.textContent = this.media.likes;
     });
+
     return figure;
   }
 
@@ -57,15 +59,6 @@ export class MediaTemplate {
       this.photographer.totalLikes--;
     }
 
-    // Mettre à jour le nombre total de likes du photographe
-    // let totalLikesChange; // Déclarer la variable totalLikesChange
-    // if (this.Liked) {
-    //   totalLikesChange = 1;
-    // } else {
-    //   totalLikesChange = -1;
-    // }
-    // this.app.photographer.totalLikes += totalLikesChange;
-
     // Déclencher un événement avec le nombre total de likes
     const mediaLikesChangedEvent = new CustomEvent("mediaLikes", {
       detail: {
@@ -73,7 +66,6 @@ export class MediaTemplate {
       },
     });
 
-    // console.log("Media Clicked. Total Likes:", this.media.likes);
     document.dispatchEvent(mediaLikesChangedEvent);
   };
 

@@ -1,6 +1,6 @@
 import { PhotographerApi } from "../controleurApi/PhotographerApi.js";
 import { PhotographerModel } from "../models/Photographer.js";
-import { PhotographerTemplate } from "../vueTemplates/Photographer.js";
+import { PhotographerTemplate } from "../templates/Photographer.js";
 
 class App {
   constructor() {

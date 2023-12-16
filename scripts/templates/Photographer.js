@@ -5,6 +5,7 @@ export class PhotographerTemplate {
 
   getDOM() {
     const article = document.createElement("article");
+    // Création de l'élément image
     const image = document.createElement("img");
     image.setAttribute("src", this.photographer.picture);
     image.setAttribute("alt", "Portrait du photographe");

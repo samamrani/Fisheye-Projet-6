@@ -14,7 +14,7 @@
   <div class="container">
     <header>
       <a href="index.html">
-        <img class="logo_cadre" src="assets/logo.png" class="logo" />
+        <img class="logo_cadre" src="assets/logo.png" alt="Fisheye Home page" />
       </a>
     </header>
     <main id="main-wrapper" aria-hidden="false">
@@ -27,6 +27,7 @@
         </div>
         <button class="contact_button">Contactez-moi</button>
         <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
+
       </section>
       <!-- Trie -->
       <section>
@@ -37,6 +38,9 @@
           <option value="option3">Titre</option>
         </select>
       </section>
+
+
+
       <!-- Media -->
       <section>
         <div class="media-container">
@@ -82,20 +86,24 @@
       </div>
       <div class="formData">
         <label for="msg">Votre message</label>
-        <textarea class="input" cols="51" rows="3" id="msg" name="message" placeholder="Votre message"></textarea>
+        <textarea class="input" cols="40" rows="3" id="msg" name="message" placeholder="Votre message"></textarea>
         <span class="msg"></span>
       </div>
       <button class="contact_button" type="submit">Envoyer</button>
     </form>
   </dialog>
+
   <!-- lightbox -->
   <dialog class="lightbox" id="lightbox">
-    <button class="lightbox_close" onclick="closeLightbox()">Fermer</button>
-    <button class="lightbox_next">Suivant</button>
-    <button class="lightbox_prev">Précédent</button>
+    <button class="lightbox_close" onclick="closeLightbox()" id="lightboxCloseBtn"><i
+        class="fa-solid fa-xmark"></i></button>
+    <button class="lightbox_next"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="lightbox_prev"><i class="fa-solid fa-chevron-left"></i></button>
     <div class="lightbox_container">
       <figure class="figure">
-        <img src="#" alt="">
+        <img src="" alt="" id="lightboxImage">
+        <video controls src="#" alt="" id="lightboxVideo"></video>
+
       </figure>
     </div>
   </dialog>
@@ -103,7 +111,7 @@
   <script src="https://kit.fontawesome.com/83ce57e2f1.js" crossorigin="anonymous"></script>
   <script src="/scripts/pages/photographer.js" type="module"></script>
   <script src="/scripts/utils/contactForm.js" type="module"></script>
-  <!-- <script src="/scripts/utils/lightbox.js" type="module"></script> -->
+
 
 </body>
 
