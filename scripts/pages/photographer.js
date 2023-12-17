@@ -13,6 +13,7 @@ class App {
     this.photographer = null;
     this.list = [];
     this.current = -1;
+    this.optionSelectionnee = null;
   }
 
   async init() {
@@ -27,6 +28,25 @@ class App {
     this.displayMediasMain();
     this.displayMediaLikes();
     this.updateLightbox();
+
+    // écouteur d'événements au menu déroulant
+    const selectMenu = document.getElementById("menuDeroulant");
+    selectMenu.addEventListener("change", () => {
+      // valeur de l'option sélectionnée
+      this.optionSelectionnee = selectMenu.value;
+
+      // Triez le tableau medias en fonction de l'option sélectionnée
+      if (this.optionSelectionnee === "option1") {
+        this.medias.sort((a, b) => b.likes - a.likes); // Triez par popularité (likes)
+      } else if (this.optionSelectionnee === "option2") {
+        this.medias.sort((a, b) => new Date(b.date) - new Date(a.date)); // Triez par date
+      } else if (this.optionSelectionnee === "option3") {
+        this.medias.sort((a, b) => a.title.localeCompare(b.title)); // Triez par titre
+      }
+
+      // Mettez à jour les medias affichés
+      this.displayMediasMain();
+    });
   }
 
   //Méthode displayPhotographer
@@ -52,31 +72,48 @@ class App {
   async displayMediasMain() {
     const mediaContainer = document.querySelector(".media-container");
 
-    this.medias.forEach((media) => {
-      const template = MediaFactory.create(media, this.photographer, this.list);
-      const mediaDOM = template.getDOM();
-      mediaContainer.appendChild(mediaDOM);
+    // Vide le conteneur des médias avant d'ajouter les médias triés
+    mediaContainer.innerHTML = "";
 
-      //  écouteur d'événements au clic sur un élément de média
-      mediaDOM.querySelector(".media").addEventListener("click", () => {
-        const index = this.list.indexOf(media);
-        this.index = index;
-        this.updateLightbox();
-        lightbox.showModal();
+    // Trie les médias en fonction de l'option sélectionnée
+    if (this.medias && this.medias.length > 0) {
+      if (this.optionSelectionnee === "option1") {
+        this.medias.sort((a, b) => b.likes - a.likes); // Triez par popularité (likes)
+      } else if (this.optionSelectionnee === "option2") {
+        this.medias.sort((a, b) => new Date(b.date) - new Date(a.date)); // Triez par date
+      } else if (this.optionSelectionnee === "option3") {
+        this.medias.sort((a, b) => a.title.localeCompare(b.title)); // Triez par titre
+      }
+
+      // Ajoute chaque média trié au conteneur
+      this.medias.forEach((media) => {
+        const template = MediaFactory.create(
+          media,
+          this.photographer,
+          this.list
+        );
+        const mediaDOM = template.getDOM();
+        mediaContainer.appendChild(mediaDOM);
+
+        //  écouteur d'événements au clic sur un élément de média
+        mediaDOM.querySelector(".media").addEventListener("click", () => {
+          const index = this.list.indexOf(media);
+          this.index = index;
+          this.updateLightbox();
+          lightbox.showModal();
+        });
+        // Ajouter l'événement pour fermer le lightbox
+        const lightbox = document.getElementById("lightbox");
+        lightbox.addEventListener("click", (event) => {
+          if (event.target === lightbox) {
+            lightbox.close();
+          }
+        });
+
+        // le média à la liste
+        this.list.push(media);
       });
-
-      // Ajouter l'événement pour fermer le lightbox
-      const lightbox = document.getElementById("lightbox");
-
-      lightbox.addEventListener("click", (event) => {
-        if (event.target === lightbox) {
-          lightbox.close();
-        }
-      });
-
-      // le média à la liste
-      this.list.push(media);
-    });
+    }
   }
   /***************** */
   updateLikes() {
@@ -93,9 +130,7 @@ class App {
   displayMediaLikes() {
     // recup l'événement de changement de likes
     document.addEventListener("mediaLikes", this.updateLikes.bind(this));
-
     // total des likes à partir des médias
-
     let totalLikes = 0;
     for (let i = 0; i < this.medias.length; i++) {
       totalLikes += this.medias[i].likes;
@@ -111,6 +146,8 @@ class App {
     const imgElement = lightbox.querySelector("#lightboxImage");
     const videoElement = lightbox.querySelector("#lightboxVideo");
 
+    const titleText = lightbox.querySelector("#title");
+
     imgElement.style.display = "none";
     videoElement.style.display = "none";
 
@@ -119,10 +156,11 @@ class App {
       // console.log("imgElement:", imgElement);
       // console.log("videoElement:", videoElement);
 
+      titleText.textContent = indexMedia.title; // Mettez à jour le titre avec le titre du média
       if (indexMedia.image) {
         imgElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.image}`;
         imgElement.alt = indexMedia.title;
-        imgElement.style.display = "block"; // Masquer l'élément vidéo s'il y en a un
+        imgElement.style.display = "block"; // afficher l'élément vidéo s'il y en a un
       } else if (indexMedia.video) {
         videoElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.video}`;
         videoElement.alt = indexMedia.title;
