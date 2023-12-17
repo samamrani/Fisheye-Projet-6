@@ -86,7 +86,7 @@
       </div>
       <div class="formData">
         <label for="msg">Votre message</label>
-        <textarea class="input" cols="40" rows="3" id="msg" name="message" placeholder="Votre message"></textarea>
+        <textarea class="text-control" id="msg" name="message" placeholder="Votre message"></textarea>
         <span class="msg"></span>
       </div>
       <button class="contact_button" type="submit">Envoyer</button>
@@ -95,18 +95,22 @@
 
   <!-- lightbox -->
   <dialog class="lightbox" id="lightbox">
-    <button class="lightbox_close" onclick="closeLightbox()" id="lightboxCloseBtn"><i
-        class="fa-solid fa-xmark"></i></button>
+    <button class="lightbox_close" id="lightboxCloseBtn"><i class="fa-solid fa-xmark"></i></button>
     <button class="lightbox_next"><i class="fa-solid fa-chevron-right"></i></button>
     <button class="lightbox_prev"><i class="fa-solid fa-chevron-left"></i></button>
+
     <div class="lightbox_container">
       <figure class="figure">
         <img src="" alt="" id="lightboxImage">
         <video controls src="#" alt="" id="lightboxVideo"></video>
-
+        <figcaption id="title"></figcaption>
       </figure>
     </div>
+
+
   </dialog>
+
+
 
   <script src="https://kit.fontawesome.com/83ce57e2f1.js" crossorigin="anonymous"></script>
   <script src="/scripts/pages/photographer.js" type="module"></script>
