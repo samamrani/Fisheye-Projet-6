@@ -11,6 +11,16 @@ export class PhotographerTemplate {
     image.setAttribute("alt", "Portrait du photographe");
     image.setAttribute("aria-label", "Étiquette ARIA pour l'image");
 
+    const video = document.createElement("video");
+    video.setAttribute("alt", "Portrait du photographe");
+    video.setAttribute("aria-label", "Étiquette ARIA pour video");
+
+    const source = document.createElement("source");
+    source.setAttribute("src", this.photographer.video); // Remplacez this.photographer.video par l'URL réelle de la vidéo
+    source.setAttribute("type", "./assets/medias");
+
+    video.appendChild(source);
+
     const h2 = document.createElement("h2");
     h2.textContent = this.photographer.name;
 
@@ -28,6 +38,7 @@ export class PhotographerTemplate {
     lien.href = `photographer.html?id=${this.photographer.id}`;
 
     lien.appendChild(image);
+    lien.appendChild(video);
     lien.appendChild(h2);
 
     article.dataset.photographerId = this.id;
