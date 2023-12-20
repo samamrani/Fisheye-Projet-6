@@ -1,11 +1,11 @@
 export class MediaTemplate {
   //Le constructeur prend un objet media qui represent données du média
-  constructor(media, photographer, list, app) {
+  constructor(media, photographer, app) {
     //le chemin vers le répertoire des médias et l'Id du photographe.
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
     this.photographer = photographer;
-    this.list = list; // Nouvelle propriété pour la liste de médias
+
     this.app = app;
   }
 

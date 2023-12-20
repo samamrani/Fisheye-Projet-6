@@ -1,8 +1,5 @@
-import { ImageTemplate } from "../templates/Image.js";
-import { VideoTemplate } from "../templates/Video.js";
-
-/*MediaFactory créer des instances de médias 
-(image ou vidéo) en fonction des propriétés d'un objet media*/
+import { ImageTemplate } from "../models/Image.js";
+import { VideoTemplate } from "../models/Video.js";
 export class MediaFactory {
   //Une méthode statique appelée create
   static create(media, photographer) {

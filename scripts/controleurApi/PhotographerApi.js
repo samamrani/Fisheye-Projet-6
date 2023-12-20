@@ -1,8 +1,9 @@
 import { Api } from "./Api.js";
 
+// Classe enfant
 export class PhotographerApi extends Api {
-  // Récupère uniquement les photographes
   constructor() {
+    // Appel du constructeur de la classe parent avec super
     super("data/photographers.json");
   }
   async getPhotographers() {

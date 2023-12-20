@@ -25,21 +25,19 @@
           <h3 class="location"></h3>
           <p class="tagline"></p>
         </div>
-        <button class="contact_button">Contactez-moi</button>
-        <img class="img" alt="Portrait du photographe" aria-label="Étiquette ARIA pour l'image">
+        <button class="contact_button" tabindex="0">Contactez-moi</button>
+        <img class="img" alt="Portrait du photographe" aria-label="Portrait du photographe">
 
       </section>
       <!-- Trie -->
       <section>
         <label for="menuDeroulant">Trier par</label>
-        <select id="menuDeroulant" name="menuDeroulant">
+        <select id="menuDeroulant" name="menuDeroulant" aria-labelledby="triLabel">
           <option value="option1">Popularité</option>
           <option value="option2">Date</option>
           <option value="option3">Titre</option>
         </select>
       </section>
-
-
 
       <!-- Media -->
       <section>
@@ -57,7 +55,7 @@
     </main>
   </div>
 
-  <dialog class="modal" id="contact" aria-hidden="true" aria-describedby="contact-title">
+  <dialog class="modal" id="contact" aria-hidden="true" aria-describedby="contact-title" role="dialog">
     <form name="contact" action="#" method="dialog">
       <header>
         <h2>Contactez-moi</h2>
@@ -96,17 +94,18 @@
   <!-- lightbox -->
   <dialog class="lightbox" id="lightbox">
     <div class="lightbox_container">
-      <button class="lightbox_close" id="lightboxCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+      <button class="lightbox_close" id="lightboxCloseBtn" aria-label="Close dialog"><i
+          class="fa-solid fa-xmark"></i></button>
 
 
-      <button class="lightbox_next"><i class="fa-solid fa-chevron-right"></i></button>
-      <button class="lightbox_prev"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="lightbox_next" aria-label="Previous image"><i class=" fa-solid fa-chevron-right"></i></button>
+      <button class="lightbox_prev" aria-label="Next image"><i class="fa-solid fa-chevron-left"></i></button>
 
 
-      <figure class="figure">
-        <img src="" alt="" id="lightboxImage">
-        <video controls src="#" alt="" id="lightboxVideo"></video>
-        <figcaption id="title"></figcaption>
+      <figure class="figure" aria-labelledby="title">
+        <img src="#" alt="Lilac breasted roller" id="lightboxImage" aria-label="image closep view">
+        <video controls volume="0.5" src="#" alt="" id="lightboxVideo"></video>
+        <figcaption id="title">Légende de l'image ou de la vidéo</figcaption>
 
       </figure>
     </div>

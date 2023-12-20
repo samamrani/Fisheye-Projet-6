@@ -2,6 +2,10 @@
   height: 50px;
 }
 
+header a:focus {
+  outline: 2px solid #db8876;
+}
+
 .photographe_header {
   display: flex;
   flex-direction: row;
@@ -31,7 +35,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.contact_button:hover {
+.photographe_header .contact_button:hover {
   background-color: #db8876;
 }
 
@@ -42,8 +46,8 @@
 
   width: 100%;
   max-width: 50%;
-  height: 90vh;
-  max-height: 700px;
+  height: 95vh;
+  max-height: 750px;
   border: #fafafa;
   position: fixed;
   bottom: 0;
@@ -73,6 +77,9 @@ form label {
   font-size: 36px;
 }
 
+section label {
+  font-weight: bold;
+}
 form div {
   margin-bottom: 26px;
 }

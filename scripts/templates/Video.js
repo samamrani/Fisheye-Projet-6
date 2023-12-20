@@ -1,5 +1,5 @@
 import { MediaTemplate } from "./Media.js";
-//extends Media indique que la classe Video hérite de la classe Media
+// La classe Video hérite de la classe Media
 export class VideoTemplate extends MediaTemplate {
   //Méthode createElement:Elle crée et retourne un élément video
   createElement() {
@@ -8,7 +8,7 @@ export class VideoTemplate extends MediaTemplate {
       "src",
       `assets/medias/${this.media.photographerId}/${this.media.video}`
     );
-    video.setAttribute("title", this.media.metitle);
+    video.setAttribute("title", this.media.title);
     video.setAttribute("aria-label", this.media.title);
     return video;
   }

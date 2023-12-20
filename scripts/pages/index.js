@@ -13,7 +13,7 @@ class App {
     this.displayData();
   }
 
-  //Méthode displayData::récupère l'élément DOM
+  //récupère l'élément DOM
   async displayData() {
     const photographersSection = document.querySelector(
       ".photographer_section"

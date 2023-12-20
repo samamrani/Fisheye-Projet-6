@@ -11,7 +11,6 @@ class App {
     this.photographerApi = new PhotographerApi();
     this.mediaApi = new MediaApi();
     this.photographer = null;
-    this.list = [];
     this.current = -1;
     this.optionSelectionnee = null;
   }
@@ -34,15 +33,6 @@ class App {
     selectMenu.addEventListener("change", () => {
       // valeur de l'option sélectionnée
       this.optionSelectionnee = selectMenu.value;
-
-      // Triez le tableau medias en fonction de l'option sélectionnée
-      if (this.optionSelectionnee === "option1") {
-        this.medias.sort((a, b) => b.likes - a.likes); // Triez par popularité (likes)
-      } else if (this.optionSelectionnee === "option2") {
-        this.medias.sort((a, b) => new Date(b.date) - new Date(a.date)); // Triez par date
-      } else if (this.optionSelectionnee === "option3") {
-        this.medias.sort((a, b) => a.title.localeCompare(b.title)); // Triez par titre
-      }
 
       // Mettez à jour les medias affichés
       this.displayMediasMain();
@@ -68,7 +58,6 @@ class App {
     imgElement.setAttribute("aria-label", "Étiquette ARIA pour l'image");
   }
 
-  //Méthode displayMedias
   async displayMediasMain() {
     const mediaContainer = document.querySelector(".media-container");
 
@@ -90,14 +79,14 @@ class App {
         const template = MediaFactory.create(
           media,
           this.photographer,
-          this.list
+          this.medias
         );
         const mediaDOM = template.getDOM();
         mediaContainer.appendChild(mediaDOM);
 
         //  écouteur d'événements au clic sur un élément de média
         mediaDOM.querySelector(".media").addEventListener("click", () => {
-          const index = this.list.indexOf(media);
+          const index = this.medias.indexOf(media);
           this.index = index;
           this.updateLightbox();
           lightbox.showModal();
@@ -109,13 +98,10 @@ class App {
             lightbox.close();
           }
         });
-
-        // le média à la liste
-        this.list.push(media);
       });
     }
   }
-  /***************** */
+
   updateLikes() {
     const section = document.querySelector(".likes-footer");
 
@@ -153,14 +139,12 @@ class App {
 
     if (indexMedia) {
       console.log(indexMedia);
-      // console.log("imgElement:", imgElement);
-      // console.log("videoElement:", videoElement);
 
       titleText.textContent = indexMedia.title; // Mettez à jour le titre avec le titre du média
       if (indexMedia.image) {
         imgElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.image}`;
         imgElement.alt = indexMedia.title;
-        imgElement.style.display = "block"; // afficher l'élément vidéo s'il y en a un
+        imgElement.style.display = "block"; // afficher l'élément image s'il y en a un
       } else if (indexMedia.video) {
         videoElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.video}`;
         videoElement.alt = indexMedia.title;
@@ -169,6 +153,10 @@ class App {
         console.error("La mise à jour de la lightbox a échoué.");
       }
     }
+
+    // écouteurs d'événements pour les touches du clavier
+    document.addEventListener("keydown", this.handleKeyPress);
+
     const lightboxNextBtn = document.querySelector(".lightbox_next");
     const lightboxPrevBtn = document.querySelector(".lightbox_prev");
     const lightboxCloseBtn = document.querySelector("#lightboxCloseBtn");
@@ -186,10 +174,29 @@ class App {
     });
   };
 
+  // la gestion des touches du clavier
+  handleKeyPress = (event) => {
+    switch (event.key) {
+      case "ArrowRight":
+        this.lightboxNext();
+        break;
+      case "ArrowLeft":
+        this.lightboxPrevious();
+        break;
+      case "Escape":
+        document.removeEventListener("keydown", this.handleKeyPress);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // afficher le média suivant dans la lightbox
   lightboxNext() {
     this.index = (this.index + 1) % this.medias.length;
     this.updateLightbox();
   }
+  // afficher le média précédent dans la lightbox
   lightboxPrevious() {
     this.index = (this.index - 1 + this.medias.length) % this.medias.length;
     this.updateLightbox();
