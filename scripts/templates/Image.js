@@ -11,6 +11,7 @@ export class ImageTemplate extends MediaTemplate {
     );
     img.setAttribute("alt", this.media.title);
     img.setAttribute("aria-label", this.media.title);
+
     return img;
   }
 }
