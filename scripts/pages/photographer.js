@@ -55,7 +55,10 @@ class App {
     const imgElement = section.querySelector(".img");
     imgElement.src = `assets/photographers/${this.photographer.portrait}`;
     imgElement.alt = "Portrait du photographe " + this.photographer.name;
-    imgElement.setAttribute("aria-label", "Étiquette ARIA pour l'image");
+    imgElement.setAttribute(
+      "aria-label",
+      "Portrait du photographe " + this.photographer.name
+    );
   }
 
   async displayMediasMain() {

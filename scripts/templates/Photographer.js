@@ -8,8 +8,14 @@ export class PhotographerTemplate {
     // Création de l'élément image
     const image = document.createElement("img");
     image.setAttribute("src", this.photographer.picture);
-    image.setAttribute("alt", "Portrait du photographe");
-    image.setAttribute("aria-label", "Étiquette ARIA pour l'image");
+    image.setAttribute(
+      "alt",
+      "Portrait du photographe " + this.photographer.name
+    );
+    image.setAttribute(
+      "aria-label",
+      "Portrait du photographe " + this.photographer.name
+    );
 
     const h2 = document.createElement("h2");
     h2.textContent = this.photographer.name;
