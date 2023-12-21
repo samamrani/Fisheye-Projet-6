@@ -1,5 +1,5 @@
-import { ImageTemplate } from "../models/Image.js";
-import { VideoTemplate } from "../models/Video.js";
+import { ImageTemplate } from "../templates/Image.js";
+import { VideoTemplate } from "../templates/Video.js";
 export class MediaFactory {
   //Une méthode statique appelée create
   static create(media, photographer) {

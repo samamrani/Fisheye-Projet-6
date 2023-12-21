@@ -5,7 +5,6 @@ export class MediaTemplate {
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
     this.photographer = photographer;
-
     this.app = app;
   }
 
