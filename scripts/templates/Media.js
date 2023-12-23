@@ -49,7 +49,6 @@ export class MediaTemplate {
 
   mediaClick = () => {
     this.Liked = !this.Liked;
-
     // Mettre à jour le nombre de likes
     if (this.Liked) {
       this.media.likes = this.media.likes + 1;
@@ -58,14 +57,12 @@ export class MediaTemplate {
       this.media.likes = this.media.likes - 1;
       this.photographer.totalLikes--;
     }
-
     // Déclencher un événement avec le nombre total de likes
     const mediaLikesChangedEvent = new CustomEvent("mediaLikes", {
       detail: {
         totalLikes: this.media.likes,
       },
     });
-
     document.dispatchEvent(mediaLikesChangedEvent);
   };
 
