@@ -48,9 +48,9 @@ export class MediaTemplate {
   }
 
   mediaClick = () => {
-    this.Liked = !this.Liked;
+    this.liked = !this.liked;
     // Mettre à jour le nombre de likes
-    if (this.Liked) {
+    if (this.liked) {
       this.media.likes = this.media.likes + 1;
       this.photographer.totalLikes++;
     } else {

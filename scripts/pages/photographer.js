@@ -49,13 +49,10 @@ class App {
     const nameElement = section.querySelector(".name");
     const locationElement = section.querySelector(".location");
     const taglineElement = section.querySelector(".tagline");
-
     nameElement.textContent = this.photographer.name;
-
     locationElement.textContent =
       this.photographer.city + " " + this.photographer.country;
     taglineElement.textContent = this.photographer.tagline;
-
     const imgElement = section.querySelector(".img");
     imgElement.src = `assets/photographers/${this.photographer.portrait}`;
     imgElement.alt = "Portrait du photographe " + this.photographer.name;
@@ -114,7 +111,6 @@ class App {
     priceElement.textContent =
       this.photographer.price + " €" + " " + "/" + "jour";
   }
-
   displayMediaLikes() {
     // recup l'événement de changement de likes
     document.addEventListener("mediaLikes", this.updateLikes.bind(this));
@@ -128,52 +124,59 @@ class App {
   }
   // Méthode pour mettre à jour la lightbox
   updateLightbox = () => {
+    // Récupère le média actuel
     const indexMedia = this.medias[this.index];
+    // Sélectionne les éléments de la lightbox
     const lightbox = document.querySelector("#lightbox");
     const imgElement = lightbox.querySelector("#lightboxImage");
     const videoElement = lightbox.querySelector("#lightboxVideo");
     const titleText = lightbox.querySelector("#title");
-
+    // Cache les éléments par défaut
     imgElement.style.display = "none";
     videoElement.style.display = "none";
-
     if (indexMedia) {
-      console.log(indexMedia);
-
-      titleText.textContent = indexMedia.title; // Mettez à jour le titre avec le titre du média
+      // Affiche le titre du média
+      titleText.textContent = indexMedia.title;
+      // Si c'est une image, affiche l'élément image
       if (indexMedia.image) {
         imgElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.image}`;
         imgElement.alt = indexMedia.title;
         imgElement.style.display = "block"; // afficher l'élément image s'il y en a un
-      } else if (indexMedia.video) {
+      }
+      // Si c'est une vidéo, affiche l'élément vidéo
+      else if (indexMedia.video) {
         videoElement.src = `assets/medias/${indexMedia.photographerId}/${indexMedia.video}`;
         videoElement.alt = indexMedia.title;
-        videoElement.style.display = "block"; // Afficher l'élément vidéo
+        videoElement.style.display = "block";
       } else {
+        // En cas d'erreur, affiche un message dans la console
         console.error("La mise à jour de la lightbox a échoué.");
       }
     }
 
-    // écouteurs d'événements pour les touches du clavier
+    // Écouteurs d'événements pour les touches du clavier
     document.addEventListener("keydown", this.handleKeyPress);
-
+    // Sélectionne les boutons de la lightbox
     const lightboxNextBtn = document.querySelector(".lightbox_next");
     const lightboxPrevBtn = document.querySelector(".lightbox_prev");
     const lightboxCloseBtn = document.querySelector("#lightboxCloseBtn");
-
+    // Ajoute les écouteurs d'événements pour les boutons de la lightbox
     lightboxCloseBtn.addEventListener("click", () => {
       lightbox.close();
     });
-
     lightboxNextBtn.addEventListener("click", () => {
       this.lightboxNext();
     });
+    lightboxNextBtn.setAttribute("aria-label", "Image suivante");
 
     lightboxPrevBtn.addEventListener("click", () => {
       this.lightboxPrevious();
     });
+    lightboxPrevBtn.setAttribute("aria-label", "Image précédente");
+    // Définit le focus sur l'image
+    imgElement.focus();
   };
-  // la gestion des touches du clavier
+  // Gestion des touches du clavier
   handleKeyPress = (event) => {
     // La structure switch examine la touche pressée
     switch (event.key) {
@@ -197,12 +200,12 @@ class App {
         break;
     }
   };
-  // afficher le média suivant dans la lightbox
+  // Afficher le média suivant dans la lightbox
   lightboxNext() {
     this.index = (this.index + 1) % this.medias.length;
     this.updateLightbox();
   }
-  // afficher le média précédent dans la lightbox
+  // Afficher le média précédent dans la lightbox
   lightboxPrevious() {
     this.index = (this.index - 1 + this.medias.length) % this.medias.length;
     this.updateLightbox();
