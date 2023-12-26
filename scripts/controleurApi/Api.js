@@ -1,3 +1,4 @@
+//effectuer des requêtes HTTP simples et récupérer des données JSON à partir d'une API.
 export class Api {
   constructor(url) {
     this._url = url;

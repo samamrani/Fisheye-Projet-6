@@ -3,7 +3,7 @@ import { PhotographerModel } from "../models/Photographer.js";
 import { PhotographerTemplate } from "../templates/Photographer.js";
 class App {
   constructor() {
-    this.photographers;
+    this.photographers = [];
   }
   async init() {
     const photographerApi = new PhotographerApi();
@@ -11,7 +11,7 @@ class App {
     this.displayData();
   }
   //affiche le photographe dans le DOM
-  async displayData() {
+  displayData() {
     const photographersSection = document.querySelector(
       ".photographer_section"
     );

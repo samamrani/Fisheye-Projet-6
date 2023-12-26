@@ -61,7 +61,7 @@ class App {
       "Portrait du photographe " + this.photographer.name
     );
   }
-  async displayMediasMain() {
+  displayMediasMain() {
     const mediaContainer = document.querySelector(".media-container");
 
     // Vide le conteneur des médias avant d'ajouter les médias triés
@@ -123,7 +123,7 @@ class App {
     this.updateLikes();
   }
   // Méthode pour mettre à jour la lightbox
-  updateLightbox = () => {
+  updateLightbox() {
     // Récupère le média actuel
     const indexMedia = this.medias[this.index];
     // Sélectionne les éléments de la lightbox
@@ -155,7 +155,7 @@ class App {
     }
 
     // Écouteurs d'événements pour les touches du clavier
-    document.addEventListener("keydown", this.handleKeyPress);
+    document.addEventListener("keydown", this.handleKeyPress.bind(this));
     // Sélectionne les boutons de la lightbox
     const lightboxNextBtn = document.querySelector(".lightbox_next");
     const lightboxPrevBtn = document.querySelector(".lightbox_prev");
@@ -175,9 +175,9 @@ class App {
     lightboxPrevBtn.setAttribute("aria-label", "Image précédente");
     // Définit le focus sur l'image
     imgElement.focus();
-  };
+  }
   // Gestion des touches du clavier
-  handleKeyPress = (event) => {
+  handleKeyPress(event) {
     // La structure switch examine la touche pressée
     switch (event.key) {
       // Si la touche est la flèche droite
@@ -199,7 +199,7 @@ class App {
       default:
         break;
     }
-  };
+  }
   // Afficher le média suivant dans la lightbox
   lightboxNext() {
     this.index = (this.index + 1) % this.medias.length;
