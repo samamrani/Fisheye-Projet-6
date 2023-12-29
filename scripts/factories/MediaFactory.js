@@ -1,7 +1,7 @@
 import { ImageTemplate } from "../templates/Image.js";
 import { VideoTemplate } from "../templates/Video.js";
 export class MediaFactory {
-  //Une méthode statique appelée create
+  // créer une instance de média
   static create(media, photographer) {
     // Logique de création d'instance
     if (media.image) {

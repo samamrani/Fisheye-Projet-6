@@ -5,6 +5,9 @@ export class PhotographerTemplate {
 
   getDOM() {
     const article = document.createElement("article");
+    const imageContainer = document.createElement("div");
+    imageContainer.className = "image-container";
+
     // Création de l'élément image
     const image = document.createElement("img");
     image.setAttribute("src", this.photographer.picture);
@@ -16,6 +19,13 @@ export class PhotographerTemplate {
       "aria-label",
       "Portrait du photographe " + this.photographer.name
     );
+
+    imageContainer.appendChild(image);
+
+    // Ajouter un gestionnaire d'événements pour le clic sur l'image
+    imageContainer.addEventListener("click", () => {
+      imageContainer.classList.toggle("clicked"); // Ajout ou retire la classe "clicked"
+    });
 
     const h2 = document.createElement("h2");
     h2.textContent = this.photographer.name;
@@ -33,7 +43,7 @@ export class PhotographerTemplate {
     const lien = document.createElement("a");
     lien.href = `photographer.html?id=${this.photographer.id}`;
 
-    lien.appendChild(image);
+    lien.appendChild(imageContainer);
     lien.appendChild(h2);
 
     article.dataset.photographerId = this.id;

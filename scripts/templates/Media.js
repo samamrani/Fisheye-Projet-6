@@ -44,6 +44,27 @@ export class MediaTemplate {
       likes.textContent = this.media.likes;
     });
 
+    // effets de survol et de clic directement ici
+    media.addEventListener("mouseover", () => {
+      media.style.transform = "scale(1.1)";
+      iconLikes.style.filter = "brightness(1.2)";
+    });
+
+    media.addEventListener("mouseout", () => {
+      media.style.transform = "scale(1)";
+      iconLikes.style.filter = "brightness(1)";
+    });
+
+    media.addEventListener("mousedown", () => {
+      media.style.transform = "scale(0.9)";
+      iconLikes.style.filter = "grayscale(100%)";
+    });
+
+    media.addEventListener("mouseup", () => {
+      media.style.transform = "scale(1.1)";
+      iconLikes.style.filter = "brightness(1.2)";
+    });
+
     return figure;
   }
 

@@ -69,7 +69,7 @@ h1 {
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
-  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.25));
+
   cursor: pointer;
 }
 .photographer_section article h3 {
@@ -114,4 +114,19 @@ h1 {
 }
 .photographer_photo {
   background: #d3573c;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-out;
+}
+
+.image-container.clicked img {
+  border: 4px solid #901c1c;
 }

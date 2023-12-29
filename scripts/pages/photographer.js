@@ -61,6 +61,7 @@ class App {
       "Portrait du photographe " + this.photographer.name
     );
   }
+
   displayMediasMain() {
     const mediaContainer = document.querySelector(".media-container");
 
