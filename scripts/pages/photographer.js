@@ -9,15 +9,13 @@ class App {
     const params = new URL(document.location).searchParams;
     this.id = parseInt(params.get("id"));
 
-    // Initialise une instance de PhotographerApi pour gérer les appels API liés aux photographes
+    // Initialise des instances de PhotographerApi-MediaApi pour gérer les appels API
     this.photographerApi = new PhotographerApi();
-
-    // Initialise une instance de MediaApi pour gérer les appels API liés aux médias
     this.mediaApi = new MediaApi();
 
-    this.photographer = null; // Stocke les détails du photographe actuel
-    this.current = -1; //suivre l'index du média actuellement affiché dans la lightbox
-    this.optionSelectionnee = null; //Stocke la valeur de l'option sélectionnée dans le menu déroulant
+    this.photographer = null;
+    this.current = -1;
+    this.optionSelectionnee = null;
   }
 
   async init() {
@@ -30,30 +28,52 @@ class App {
       console.error("Erreur lors de la récupération des médias.");
       return;
     }
+    // Initialisation du formulaire de contact
     initForm(this.photographer);
     this.displayPhotographerHeader();
     this.displayMediasMain();
     this.displayMediaLikes();
     this.updateLightbox();
-    // écouteur d'événements au menu déroulant
+    // écouteur d'événements au menu déroulant pour le tri
     const selectMenu = document.getElementById("menuDeroulant");
     selectMenu.addEventListener("change", () => {
       // valeur de l'option sélectionnée
       this.optionSelectionnee = selectMenu.value;
       this.displayMediasMain();
     });
+
+    const lightboxNextBtn = document.querySelector(".lightbox_next");
+    const lightboxPrevBtn = document.querySelector(".lightbox_prev");
+    const lightboxCloseBtn = document.querySelector("#lightboxCloseBtn");
+    // Ajoute les écouteurs d'événements pour les boutons de la lightbox
+    lightboxCloseBtn.addEventListener("click", () => {
+      lightbox.close();
+    });
+    lightboxNextBtn.addEventListener("click", () => {
+      this.lightboxNext();
+    });
+    lightboxPrevBtn.addEventListener("click", () => {
+      this.lightboxPrevious();
+    });
+
+    // Écouteurs d'événements pour les touches du clavier
+    document.addEventListener("keydown", this.handleKeyPress.bind(this));
   }
-  //Méthode displayPhotographer
+
   displayPhotographerHeader() {
     const section = document.querySelector(".photographe_header");
+
     const nameElement = section.querySelector(".name");
     const locationElement = section.querySelector(".location");
     const taglineElement = section.querySelector(".tagline");
+
     nameElement.textContent = this.photographer.name;
     locationElement.textContent =
       this.photographer.city + " " + this.photographer.country;
     taglineElement.textContent = this.photographer.tagline;
+
     const imgElement = section.querySelector(".img");
+
     imgElement.src = `assets/photographers/${this.photographer.portrait}`;
     imgElement.alt = "Portrait du photographe " + this.photographer.name;
     imgElement.setAttribute(
@@ -67,17 +87,19 @@ class App {
 
     // Vide le conteneur des médias avant d'ajouter les médias triés
     mediaContainer.innerHTML = "";
+
     // Trie les médias en fonction de l'option sélectionnée
     if (this.medias && this.medias.length > 0) {
       if (this.optionSelectionnee === "option1") {
-        this.medias.sort((a, b) => b.likes - a.likes); // Triez par popularité (likes)
+        this.medias.sort((a, b) => b.likes - a.likes);
       } else if (this.optionSelectionnee === "option2") {
-        this.medias.sort((a, b) => new Date(b.date) - new Date(a.date)); // Triez par date
+        this.medias.sort((a, b) => new Date(b.date) - new Date(a.date));
       } else if (this.optionSelectionnee === "option3") {
-        this.medias.sort((a, b) => a.title.localeCompare(b.title)); // Triez par titre
+        this.medias.sort((a, b) => a.title.localeCompare(b.title));
       }
       // Ajoute chaque média trié au conteneur
-      this.medias.forEach((media) => {
+      this.medias.forEach((media, index) => {
+        // Crée un template de média avec MediaFactory
         const template = MediaFactory.create(
           media,
           this.photographer,
@@ -88,10 +110,9 @@ class App {
 
         //  écouteur d'événements au clic sur un élément de média
         mediaDOM.querySelector(".media").addEventListener("click", () => {
-          const index = this.medias.indexOf(media);
           this.index = index;
           this.updateLightbox();
-          lightbox.showModal();
+          lightbox.showModal(); //afficher la lightbox
         });
         // Ajouter l'événement pour fermer le lightbox
         const lightbox = document.getElementById("lightbox");
@@ -107,6 +128,7 @@ class App {
   updateLikes() {
     const section = document.querySelector(".likes-footer");
     const likes = section.querySelector(".likes");
+
     likes.textContent = this.photographer.totalLikes;
     const priceElement = section.querySelector(".price");
     priceElement.textContent =
@@ -123,11 +145,10 @@ class App {
     this.photographer.totalLikes = totalLikes;
     this.updateLikes();
   }
-  // Méthode pour mettre à jour la lightbox
+  // mettre à jour la lightbox
   updateLightbox() {
     // Récupère le média actuel
     const indexMedia = this.medias[this.index];
-    // Sélectionne les éléments de la lightbox
     const lightbox = document.querySelector("#lightbox");
     const imgElement = lightbox.querySelector("#lightboxImage");
     const videoElement = lightbox.querySelector("#lightboxVideo");
@@ -135,6 +156,7 @@ class App {
     // Cache les éléments par défaut
     imgElement.style.display = "none";
     videoElement.style.display = "none";
+
     if (indexMedia) {
       // Affiche le titre du média
       titleText.textContent = indexMedia.title;
@@ -150,56 +172,28 @@ class App {
         videoElement.alt = indexMedia.title;
         videoElement.style.display = "block";
       } else {
-        // En cas d'erreur, affiche un message dans la console
         console.error("La mise à jour de la lightbox a échoué.");
       }
     }
-
-    // Écouteurs d'événements pour les touches du clavier
-    document.addEventListener("keydown", this.handleKeyPress.bind(this));
-    // Sélectionne les boutons de la lightbox
-    const lightboxNextBtn = document.querySelector(".lightbox_next");
-    const lightboxPrevBtn = document.querySelector(".lightbox_prev");
-    const lightboxCloseBtn = document.querySelector("#lightboxCloseBtn");
-    // Ajoute les écouteurs d'événements pour les boutons de la lightbox
-    lightboxCloseBtn.addEventListener("click", () => {
-      lightbox.close();
-    });
-    lightboxNextBtn.addEventListener("click", () => {
-      this.lightboxNext();
-    });
-    lightboxNextBtn.setAttribute("aria-label", "Image suivante");
-
-    lightboxPrevBtn.addEventListener("click", () => {
-      this.lightboxPrevious();
-    });
-    lightboxPrevBtn.setAttribute("aria-label", "Image précédente");
-    // Définit le focus sur l'image
-    imgElement.focus();
   }
+
   // Gestion des touches du clavier
   handleKeyPress(event) {
+    const lightbox = document.querySelector("#lightbox");
     // La structure switch examine la touche pressée
-    switch (event.key) {
-      // Si la touche est la flèche droite
-      case "ArrowRight":
-        // Appelle la fonction pour afficher le média suivant dans la lightbox
-        this.lightboxNext();
-        break;
-      // Si la touche est la flèche gauche
-      case "ArrowLeft":
-        // Appelle la fonction pour afficher le média précédent dans la lightbox
-        this.lightboxPrevious();
-        break;
-      // Si la touche est la touche "Escape" (Échap)
-      case "Escape":
-        // Désinscrit cet écouteur d'événements pour les touches du clavier
-        document.removeEventListener("keydown", this.handleKeyPress);
-        break;
-      // Si la touche ne correspond à aucun des cas précédents
-      default:
-        break;
-    }
+    if (lightbox.open)
+      switch (event.key) {
+        // Si la touche est la flèche droite
+        case "ArrowRight":
+          // Appelle la fonction pour afficher le média suivant dans la lightbox
+          this.lightboxNext();
+          break;
+        // Si la touche est la flèche gauche
+        case "ArrowLeft":
+          // Appelle la fonction pour afficher le média précédent dans la lightbox
+          this.lightboxPrevious();
+          break;
+      }
   }
   // Afficher le média suivant dans la lightbox
   lightboxNext() {

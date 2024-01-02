@@ -1,7 +1,8 @@
 import { MediaTemplate } from "./Media.js";
+
 // La classe Video hérite de la classe Media
 export class VideoTemplate extends MediaTemplate {
-  //Méthode createElement:Elle crée et retourne un élément video
+  // crée et retourne un élément video
   createElement() {
     const video = document.createElement("video");
     video.setAttribute(

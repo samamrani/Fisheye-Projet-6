@@ -22,7 +22,7 @@ export class PhotographerTemplate {
 
     imageContainer.appendChild(image);
 
-    // Ajouter un gestionnaire d'événements pour le clic sur l'image
+    // gestionnaire d'événements pour le clic sur l'image
     imageContainer.addEventListener("click", () => {
       imageContainer.classList.toggle("clicked"); // Ajout ou retire la classe "clicked"
     });

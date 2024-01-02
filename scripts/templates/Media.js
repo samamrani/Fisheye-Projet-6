@@ -1,18 +1,18 @@
 export class MediaTemplate {
   //Le constructeur prend un objet media qui represent données du média
-  constructor(media, photographer, app) {
+  constructor(media, photographer) {
     //le chemin vers le répertoire des médias et l'Id du photographe.
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
     this.photographer = photographer;
-    this.app = app;
+    // this.app = app;
   }
 
   // Méthode getMediaDOM crée et retourne l'élément DOM représentant le média
   getDOM() {
     // Création d'un élément <figure> qui encapsulera le média
     const figure = document.createElement("figure");
-    const media = this.createElement(); // Appel à la méthode abstraite createElement
+    const media = this.createElement(); // Appel à la méthode
     media.className = "media";
     figure.appendChild(media);
 
@@ -40,29 +40,7 @@ export class MediaTemplate {
     // gestionnaire d'événements pour le clic sur le bouton de like
     iconLikes.addEventListener("click", () => {
       this.mediaClick();
-
       likes.textContent = this.media.likes;
-    });
-
-    // effets de survol et de clic directement ici
-    media.addEventListener("mouseover", () => {
-      media.style.transform = "scale(1.1)";
-      iconLikes.style.filter = "brightness(1.2)";
-    });
-
-    media.addEventListener("mouseout", () => {
-      media.style.transform = "scale(1)";
-      iconLikes.style.filter = "brightness(1)";
-    });
-
-    media.addEventListener("mousedown", () => {
-      media.style.transform = "scale(0.9)";
-      iconLikes.style.filter = "grayscale(100%)";
-    });
-
-    media.addEventListener("mouseup", () => {
-      media.style.transform = "scale(1.1)";
-      iconLikes.style.filter = "brightness(1.2)";
     });
 
     return figure;

@@ -120,10 +120,6 @@ select {
   height: 300px;
   border-radius: 5px;
   object-fit: cover;
-  transition: transform 0.3s ease-out;
-}
-.media:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .media-container {

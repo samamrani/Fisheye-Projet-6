@@ -2,7 +2,7 @@ import { MediaTemplate } from "./Media.js";
 
 //classe Image hérite de la classe Media
 export class ImageTemplate extends MediaTemplate {
-  //Image. Elle crée et retourne un élément img (image HTML)
+  //crée et retourne un élément img (image HTML)
   createElement() {
     const img = document.createElement("img");
     img.setAttribute(
