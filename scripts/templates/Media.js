@@ -48,7 +48,8 @@ export class MediaTemplate {
     figure.appendChild(figcaption);
 
     // gestionnaire d'événements pour le clic sur le bouton de like
-    iconLikes.addEventListener("click", () => {
+    iconLink.addEventListener("click", (e) => {
+      e.preventDefault();
       this.mediaClick();
       likes.textContent = this.media.likes;
     });
