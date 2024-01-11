@@ -8,7 +8,6 @@ export class PhotographerTemplate {
     const imageContainer = document.createElement("div");
     imageContainer.className = "image-container";
 
-    // Création de l'élément image
     const image = document.createElement("img");
     image.setAttribute("src", this.photographer.picture);
     image.setAttribute(
@@ -24,7 +23,7 @@ export class PhotographerTemplate {
 
     // gestionnaire d'événements pour le clic sur l'image
     imageContainer.addEventListener("click", () => {
-      imageContainer.classList.toggle("clicked"); // Ajout ou retire la classe "clicked"
+      imageContainer.classList.toggle("clicked");
     });
 
     const h2 = document.createElement("h2");
@@ -46,6 +45,7 @@ export class PhotographerTemplate {
     lien.appendChild(imageContainer);
     lien.appendChild(h2);
 
+    //attribut dataset stocKer l'ID
     article.dataset.photographerId = this.id;
 
     article.appendChild(lien);

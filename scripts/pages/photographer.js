@@ -84,10 +84,8 @@ class App {
 
   displayMediasMain() {
     const mediaContainer = document.querySelector(".media-container");
-
     // Vide le conteneur des médias avant d'ajouter les médias triés
     mediaContainer.innerHTML = "";
-
     // Trie les médias en fonction de l'option sélectionnée
     if (this.medias && this.medias.length > 0) {
       if (this.optionSelectionnee === "option1") {
@@ -109,8 +107,10 @@ class App {
         mediaContainer.appendChild(mediaDOM);
 
         //  écouteur d'événements au clic sur un élément de média
-        mediaDOM.querySelector(".media").addEventListener("click", () => {
+        mediaDOM.querySelector(".media-link").addEventListener("click", (e) => {
+          e.preventDefault();
           this.index = index;
+
           this.updateLightbox();
           lightbox.showModal(); //afficher la lightbox
         });
@@ -128,16 +128,13 @@ class App {
   updateLikes() {
     const section = document.querySelector(".likes-footer");
     const likes = section.querySelector(".likes");
-
     likes.textContent = this.photographer.totalLikes;
     const priceElement = section.querySelector(".price");
     priceElement.textContent =
       this.photographer.price + " €" + " " + "/" + "jour";
   }
   displayMediaLikes() {
-    // recup l'événement de changement de likes
     document.addEventListener("mediaLikes", this.updateLikes.bind(this));
-    // total des likes à partir des médias
     let totalLikes = 0;
     for (let i = 0; i < this.medias.length; i++) {
       totalLikes += this.medias[i].likes;

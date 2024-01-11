@@ -5,7 +5,6 @@ export class MediaTemplate {
     this.path = `assets/medias/${media.photographerId}`;
     this.media = media;
     this.photographer = photographer;
-    // this.app = app;
   }
 
   // Méthode getMediaDOM crée et retourne l'élément DOM représentant le média
@@ -14,7 +13,12 @@ export class MediaTemplate {
     const figure = document.createElement("figure");
     const media = this.createElement(); // Appel à la méthode
     media.className = "media";
-    figure.appendChild(media);
+
+    const link = document.createElement("a");
+    link.href = "#";
+    link.className = "media-link";
+    link.appendChild(media);
+    figure.appendChild(link);
 
     // Création d'un élément <figcaption> pour contenir le titre, les likes et l'icône du cœur
     const figcaption = document.createElement("figcaption");
@@ -27,11 +31,17 @@ export class MediaTemplate {
     likes.className = "likes";
     likes.textContent = this.media.likes;
 
+    const iconLink = document.createElement("a"); // Création de l'élément de lien pour l'icône du cœur
+    iconLink.href = "#";
+    iconLink.style.color = "#901c1c";
+
     const iconSolide = document.createElement("i"); // Création de l'icône du cœur
     iconSolide.className = "fa-solid fa-heart iconSolide";
 
     iconLikes.appendChild(likes);
-    iconLikes.appendChild(iconSolide);
+
+    iconLink.appendChild(iconSolide);
+    iconLikes.appendChild(iconLink);
 
     figcaption.appendChild(titleText);
     figcaption.appendChild(iconLikes);

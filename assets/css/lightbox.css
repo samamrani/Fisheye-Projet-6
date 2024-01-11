@@ -1,7 +1,9 @@
+/* Styles pour l'arrière-plan de la lightbox */
 #lightbox::backdrop {
-  background: #fff;
+  background: #000000;
 }
 
+/* Styles pour la lightbox lorsqu'elle est ouverte */
 #lightbox[open] {
   display: flex;
   justify-content: center;
